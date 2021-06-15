@@ -83,7 +83,7 @@ const cardNueva = (customName, id, lastValue) => {
 
 
 
-const loadData = () => {
+const loadData = async() => {
     let resultado = await getData();
     console.log("resultado", resultado[0][1].customName);
     let customName; 
@@ -145,5 +145,5 @@ const loggedIn = (user) => {
 bntGoogle.addEventListener('click', async() => {
     await registerUserGoogle("SESSION");
     $('#signUpModal').modal('hide')
-    // loadData();
+    await loadData();
 })
