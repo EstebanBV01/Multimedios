@@ -133,7 +133,7 @@ const loggedIn = (user) => {
     $("#listaNavBar").prepend(list);
 }
 
-loadData();
+
 bntGoogle.addEventListener('click', async() => {
     await registerUserGoogle("SESSION");
     console.log("DONE!");
