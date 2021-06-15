@@ -6,6 +6,12 @@
     border-width: 0px;
 }
 
+.card {
+    margin-right: auto;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
 .modal.hidden {
     display: none;
 }

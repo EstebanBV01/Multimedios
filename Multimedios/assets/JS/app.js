@@ -51,10 +51,62 @@ const loggedOut = () => {
     h1UserName.innerHTML = "Nadie esta logueado";
     $("#userProfileLi").remove();
 }
+
+const cardNueva = (customName, id, lastValue) => {
+    let divCard = document.createElement("div");
+    divCard.classList.add("card");
+    let imgCard = document.createElement("img");
+    imgCard.classList.add("card-img-top");
+    imgCard.alt = "Sensor de ruido";
+    divCard.append(imgCard);
+    let divBody = document.createElement("div");
+    divBody.classList.add("card-body");
+    let titleCard = document.createElement("h5");
+    titleCard.classList.add("card-title");
+    titleCard.innerText = customName;
+    divBody.append(titleCard);
+    let paragraphCard = document.createElement("p");
+    paragraphCard.classList.add("card-text");
+    paragraphCard.innerText = lastValue;
+    let buttonCard = document.createElement("a");
+    buttonCard.classList.add("btn btn-primary");
+    buttonCard.innerText = "Configurar";
+    buttonCard.href = id;
+    divBody.append(buttonCard);
+}
+
+
+
+
+const loadData = () => {
+    let divContainer = document.createElement("div");
+    divContainer.classList.add("container");
+    let divRow;
+    let divCol;
+    let card;
+    let counter = 0;
+    for (let index = 0; index < array.length; index++) {
+
+        if (index === 0 || counter === 2) {
+            divRow = document.createElement("div");
+            divRow.classList.add("row");
+            divContainer.append(divRow);
+            counter = 0;
+        }
+
+        divCol = document.createElement("div");
+        divCol.classList.add("col");
+        card = cardnueva();
+        divCol.append(card);
+        divRow.append(divCol);
+
+        counter++;
+    }
+}
 const loggedIn = (user) => {
     console.log("logged in !!");
     console.log({ user });
-    $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
+    $("#labelLoginImage").toggleClass("fa-sign-out-alt fa-lg fas fa-user fas");
     $("#labelLoginTexto").html("Salir");
     let picture = document.createElement('img');
     let list = document.createElement("li");
