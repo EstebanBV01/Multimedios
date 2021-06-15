@@ -59,24 +59,25 @@ const cardNueva = (customName, id, lastValue) => {
     imgCard.classList.add("card-img-top");
     imgCard.alt = "Sensor de ruido";
     imgCard.src = "https://images-na.ssl-images-amazon.com/images/I/71hEtk3aCpL._SL1500_.jpg";
-    divCard.append(imgCard);
+    divCard.appendChild(imgCard);
     let divBody = document.createElement("div");
     divBody.classList.add("card-body");
     let titleCard = document.createElement("h5");
     titleCard.classList.add("card-title");
     titleCard.innerText = customName;
-    divBody.append(titleCard);
+    divBody.appendChild(titleCard);
     let paragraphCard = document.createElement("p");
     paragraphCard.classList.add("card-text");
     paragraphCard.innerText = lastValue;
+    divBody.appendChild(paragraphCard);
     let buttonCard = document.createElement("a");
-    buttonCard.classList.add("btn-primary");
+    buttonCard.classList.add("btn-primary", "btn");
     buttonCard.innerText = "Configurar";
     buttonCard.href = id;
-    divBody.append(buttonCard);
-    console.log({ divCard });
+    divBody.appendChild(buttonCard);
+    divCard.appendChild(divBody);
 
-    return divBody;
+    return divCard;
 }
 
 
@@ -84,15 +85,16 @@ const cardNueva = (customName, id, lastValue) => {
 
 const loadData = () => {
     let divContainer = document.createElement("div");
-    divContainer.classList.add("container");
+    divContainer.classList.add("container-fluid");
+    let cardDiv = document.querySelector("#Cards");
     let divRow;
     let divCol;
     let card;
     let counter = 0;
-    let array = [0, 3, 4, 5];
+    let array = [0, 3, 4, 5, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
     for (let index = 0; index < array.length; index++) {
 
-        if (index === 0 || counter === 2) {
+        if (index === 0 || counter === 4) {
             divRow = document.createElement("div");
             divRow.classList.add("row");
             divContainer.append(divRow);
@@ -100,14 +102,19 @@ const loadData = () => {
         }
 
         divCol = document.createElement("div");
-        divCol.classList.add("col");
+        divCol.classList.add("col-sm-6", "col-md-6", "col-xl-3");
         card = cardNueva("nepe", "nepe", "nepe");
+        console.log("CaRTA");
+
+        console.log({ card });
+
         divCol.append(card);
         divRow.append(divCol);
 
         counter++;
     }
-    $("#Cards").append(divContainer);
+
+    cardDiv.append(divContainer);
 }
 const loggedIn = (user) => {
     console.log("logged in !!");
@@ -126,7 +133,7 @@ const loggedIn = (user) => {
     $("#listaNavBar").prepend(list);
 }
 
-
+loadData();
 bntGoogle.addEventListener('click', async() => {
     await registerUserGoogle("SESSION");
     console.log("DONE!");
