@@ -1,0 +1,55 @@
+#loginBtn,
+#registroBtn {
+    cursor: default !important;
+    margin-bottom: 25px;
+    background-color: white;
+    border-width: 0px;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+#btnGoogle {
+    border-color: #DB4437;
+    background-color: white;
+    color: #DB4437;
+}
+
+#btnGoogle:hover {
+    background-color: #DB4437;
+    color: white;
+}
+
+#recordarCheck {
+    justify-content: flex-start
+}
+
+#userPicture {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+#labelPassword,
+#labelEmail {
+    margin-left: 10px;
+}
+
+#inputPassword,
+#inputEmail {
+    margin-left: 10px;
+}
+
+#labelLoginimage {
+    float: right;
+}
+
+.btnOnClick {
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-position: under;
+    text-decoration-color: teal;
+    font-weight: bold;
+    color: teal;
+}
