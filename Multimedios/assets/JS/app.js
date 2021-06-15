@@ -84,6 +84,11 @@ const cardNueva = (customName, id, lastValue) => {
 
 
 const loadData = () => {
+    let resultado = await getData();
+    console.log("resultado", resultado[0][1].customName);
+    let customName; 
+    let id;
+    let lastValue;
     let divContainer = document.createElement("div");
     divContainer.classList.add("container-fluid");
     let cardDiv = document.querySelector("#Cards");
@@ -92,7 +97,7 @@ const loadData = () => {
     let card;
     let counter = 0;
     let array = [0, 3, 4, 5, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
-    for (let index = 0; index < array.length; index++) {
+    for (let index = 0; index < resultado.length; index++) {
 
         if (index === 0 || counter === 4) {
             divRow = document.createElement("div");
@@ -103,7 +108,10 @@ const loadData = () => {
 
         divCol = document.createElement("div");
         divCol.classList.add("col-sm-6", "col-md-6", "col-xl-3");
-        card = cardNueva("nepe", "nepe", "nepe");
+        customName=resultado[index][1].customName;
+        lastValue=resultado[index][1].lastValue;
+        id=resultado[index][0];
+        card = cardNueva(customName, id, lastValue);
         console.log("CaRTA");
 
         console.log({ card });
@@ -136,7 +144,6 @@ const loggedIn = (user) => {
 
 bntGoogle.addEventListener('click', async() => {
     await registerUserGoogle("SESSION");
-    console.log("DONE!");
     $('#signUpModal').modal('hide')
-    loadData();
+    // loadData();
 })
