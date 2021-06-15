@@ -147,3 +147,4 @@ bntGoogle.addEventListener('click', async() => {
     $('#signUpModal').modal('hide')
     await loadData();
 })
+})
