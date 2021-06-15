@@ -58,6 +58,7 @@ const cardNueva = (customName, id, lastValue) => {
     let imgCard = document.createElement("img");
     imgCard.classList.add("card-img-top");
     imgCard.alt = "Sensor de ruido";
+    imgCard.src = "https://images-na.ssl-images-amazon.com/images/I/71hEtk3aCpL._SL1500_.jpg";
     divCard.append(imgCard);
     let divBody = document.createElement("div");
     divBody.classList.add("card-body");
@@ -69,10 +70,13 @@ const cardNueva = (customName, id, lastValue) => {
     paragraphCard.classList.add("card-text");
     paragraphCard.innerText = lastValue;
     let buttonCard = document.createElement("a");
-    buttonCard.classList.add("btn btn-primary");
+    buttonCard.classList.add("btn-primary");
     buttonCard.innerText = "Configurar";
     buttonCard.href = id;
     divBody.append(buttonCard);
+    console.log({ divCard });
+
+    return divBody;
 }
 
 
@@ -85,6 +89,7 @@ const loadData = () => {
     let divCol;
     let card;
     let counter = 0;
+    let array = [0, 3, 4, 5];
     for (let index = 0; index < array.length; index++) {
 
         if (index === 0 || counter === 2) {
@@ -96,12 +101,13 @@ const loadData = () => {
 
         divCol = document.createElement("div");
         divCol.classList.add("col");
-        card = cardnueva();
+        card = cardNueva("nepe", "nepe", "nepe");
         divCol.append(card);
         divRow.append(divCol);
 
         counter++;
     }
+    $("#Cards").append(divContainer);
 }
 const loggedIn = (user) => {
     console.log("logged in !!");
@@ -125,4 +131,5 @@ bntGoogle.addEventListener('click', async() => {
     await registerUserGoogle("SESSION");
     console.log("DONE!");
     $('#signUpModal').modal('hide')
+    loadData();
 })
