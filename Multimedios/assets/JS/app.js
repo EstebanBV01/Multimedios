@@ -83,10 +83,10 @@ const cardNueva = (customName, id, lastValue) => {
 
 
 
-const loadData = () => {
+const loadData = async() => {
     let resultado = await getData();
-    console.log("resultado", resultado[0][1].customName);
-    let customName; 
+
+    let customName;
     let id;
     let lastValue;
     let divContainer = document.createElement("div");
@@ -96,7 +96,7 @@ const loadData = () => {
     let divCol;
     let card;
     let counter = 0;
-    let array = [0, 3, 4, 5, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3];
+
     for (let index = 0; index < resultado.length; index++) {
 
         if (index === 0 || counter === 4) {
@@ -108,9 +108,9 @@ const loadData = () => {
 
         divCol = document.createElement("div");
         divCol.classList.add("col-sm-6", "col-md-6", "col-xl-3");
-        customName=resultado[index][1].customName;
-        lastValue=resultado[index][1].lastValue;
-        id=resultado[index][0];
+        customName = resultado[index][1].customName;
+        lastValue = resultado[index][1].lastValue;
+        id = resultado[index][0];
         card = cardNueva(customName, id, lastValue);
         console.log("CaRTA");
 
@@ -145,5 +145,5 @@ const loggedIn = (user) => {
 bntGoogle.addEventListener('click', async() => {
     await registerUserGoogle("SESSION");
     $('#signUpModal').modal('hide')
-    // loadData();
+    await loadData();
 })
