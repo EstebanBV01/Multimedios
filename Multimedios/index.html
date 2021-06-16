@@ -7,32 +7,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/references/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
     <script src="assets/references/jquery.js"></script>
     <title>Sound Sensor</title>
 </head>
 
 <body>
-    <!-- barra de navegacion -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Sound Sensor</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul id="listaNavBar" class="navbar-nav ms-auto">
-
-
-                    <li class="nav-item">
-
-                        <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span id="labelLoginTexto">Login or SignUp</span></a>
-                    </li>
-
-                </ul>
-            </div>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Clients</a>
+        <a href="#">Contact</a>
+        <div id="divlogin">
+            <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span id="labelLoginTexto">Login or SignUp</span></a>
         </div>
-    </nav>
-    <div id="Cards" class="container-fluid"></div>
+        
+      </div>
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+      
+      <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+      </script>
+      <div id="Cards" class="container-fluid"></div>
+<!--  -->
+    <!-- <div id="divlogin">
+        <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span id="labelLoginTexto">Login or SignUp</span></a>
+    </div>
+    <div id="Cards" class="container-fluid"></div> -->
 
     <!-- modal es la ventana emergente para logerarse -->
     <!-- Button trigger modal -->
@@ -81,9 +89,34 @@
             </div>
         </div>
     </div>
+    <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregarMedidor">
+        Agregar medidor
+    </button> -->
+    <!-- nuevo modal -->
+    <div class="modal fade" id="modalAgregarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Activar Medidor</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
 
+                <div class="mb-3">
+                    <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
+                    <input type="text" class="form-control" id="inputId">
+                </div>
 
-    <h1 id="h1UserName" class="h1">Nombre</h1>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Agregar el Medidor</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!--  -->
+
+    <!-- <h1 id="h1UserName" class="h1">Nombre</h1> -->
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
