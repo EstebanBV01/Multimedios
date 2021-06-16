@@ -46,9 +46,11 @@ firebase.auth().onAuthStateChanged(function(user) {
     }
 });
 const loggedOut = () => {
-    $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
+    // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
+    document.querySelector("#labelLoginImage").classList.remove("fas","fa-sign-out-alt", "fa-lg");
+    document.querySelector("#labelLoginImage").classList.add("fas","fa-user");
     $("#labelLoginTexto").html("Login or SignUp");
-    h1UserName.innerHTML = "Nadie esta logueado";
+    // h1UserName.innerHTML = "Nadie esta logueado";
     $("#userProfileLi").remove();
 }
 
@@ -79,8 +81,11 @@ const cardNueva = (customName, id, lastValue) => {
 
     return divCard;
 }
+// crearUnmedidor
+const botonAgregar=()=>{
 
 
+}
 
 
 const loadData = async() => {
@@ -127,7 +132,9 @@ const loadData = async() => {
 const loggedIn = (user) => {
     console.log("logged in !!");
     console.log({ user });
-    $("#labelLoginImage").toggleClass("fa-sign-out-alt fa-lg fas fa-user fas");
+    // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
+    document.querySelector("#labelLoginImage").classList.remove("fas","fa-user");
+    document.querySelector("#labelLoginImage").classList.add("fas","fa-sign-out-alt", "fa-lg");
     $("#labelLoginTexto").html("Salir");
     let picture = document.createElement('img');
     let list = document.createElement("li");
@@ -135,10 +142,10 @@ const loggedIn = (user) => {
     list.classList.add("nav-item");
     picture.src = user.photoURL;
     picture.classList.add("rounded-circle");
-    h1UserName.innerHTML = user.displayName;
+    // h1UserName.innerHTML = user.displayName;
     picture.id = "userPicture";
     list.append(picture);
-    $("#listaNavBar").prepend(list);
+    $("#divlogin").prepend(list);
 }
 
 
@@ -147,4 +154,4 @@ bntGoogle.addEventListener('click', async() => {
     $('#signUpModal').modal('hide')
     await loadData();
 })
-})
+
