@@ -143,8 +143,8 @@ const loggedIn = (user) => {
 
 
 bntGoogle.addEventListener('click', async() => {
-    await registerUserGoogle("SESSION");
-    $('#signUpModal').modal('hide')
-    await loadData();
+await registerUserGoogle("SESSION");
+$('#signUpModal').modal('hide')
+await loadData();
 })
 })
