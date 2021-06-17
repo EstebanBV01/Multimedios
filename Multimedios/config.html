@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/references/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="assets/css/sidebar.css">
+  <script src="assets/references/jquery.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+  <script src="https://kit.fontawesome.com/5fc4fd5412.js" crossorigin="anonymous"></script>
+  <script src="assets/references/bootstrap.min.js"></script>
+  <script src="assets/JS/firebase.js"></script>
+  <script src="assets/JS/app.js"></script>
+  <script src="assets/JS/database.js"></script>
+  <title>Configurar el dispositivo</title>
+</head>
+
+<body>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Services</a>
+    <a href="#">Clients</a>
+    <a href="#">Contact</a>
+    <div id="divlogin">
+      <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span
+          id="labelLoginTexto">Login or SignUp</span></a>
+    </div>
+</div>
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  </script>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="AlarmSW">
+          <label class="form-check-label" for="AlarmSW">Alarma</label>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="TestSW">
+          <label class="form-check-label" for="TestSW">Modo prueba</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label for="SensBar" class="form-label">Sensibilidad de la alarma</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <input type="range" class="sensBar" id="customRange1">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <label class="form-check-label" for="cooldown">Tiempo de espera entre alertas: </label>
+        <input type="number" class="form-control" id="cooldown" min="1" max="60">
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <label class="form-check-label" for="message">Mensaje de notifiación</label>
+          <textarea class="form-control" id="message"></textarea>
+        </div>
+    </div>
+  </div>
+
+
+  <!-- <script>
+    $(document).ready(function(){
+      // Traer el ID del medidor seleccionado
+      let devID = "abcdefgihj";
+
+      // Cargar la config y setearla a los elementos de control
+    });
+  </script> -->
+</body>
+
+</html>
