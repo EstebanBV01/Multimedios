@@ -4,7 +4,9 @@ let btnLogin = document.querySelector("#loginBtn");
 let btnRegistro = document.querySelector("#registroBtn")
 let modal = document.querySelector("#signUpModal");
 let labelImage = document.querySelector("#labelLogin");
-
+let divbtnAgregar=document.querySelector('#divbtnAgregar');
+let btnAgregarMedidor=document.querySelector("#btnAgregarMedidor");
+let inputMeterID=document.querySelector('#inputId');
 const btnClick = (btnOn, btnOff) => {
     btnOn.classList.add("btnOnClick");
     btnOff.classList.remove("btnOnClick");
@@ -52,6 +54,9 @@ const loggedOut = () => {
     $("#labelLoginTexto").html("Login or SignUp");
     // h1UserName.innerHTML = "Nadie esta logueado";
     $("#userProfileLi").remove();
+    if(divbtnAgregar.firstChild){
+    divbtnAgregar.removeChild(divbtnAgregar.firstChild);
+    }
 }
 
 const cardNueva = (customName, id, lastValue) => {
@@ -83,9 +88,18 @@ const cardNueva = (customName, id, lastValue) => {
 }
 // crearUnmedidor
 const botonAgregar=()=>{
-
-
+    let a=document.createElement('a');
+    a.classList.add("text-secondary")
+    a.innerText="AgregarMedidor"
+    a.addEventListener('click',e=>{
+            $('#modalAgregarMedidor').modal('show');     
+    })
+    return a;
 }
+btnAgregarMedidor.addEventListener('click',e=>{
+    validateWaterMeter(inputMeterID.value);
+    // addWaterMeter(inputMeterID.value);
+})
 
 
 const loadData = async() => {
@@ -123,10 +137,9 @@ const loadData = async() => {
 
         divCol.append(card);
         divRow.append(divCol);
-
+        
         counter++;
     }
-
     cardDiv.append(divContainer);
 }
 const loggedIn = (user) => {
@@ -146,12 +159,14 @@ const loggedIn = (user) => {
     picture.id = "userPicture";
     list.append(picture);
     $("#divlogin").prepend(list);
+    divbtnAgregar.appendChild(botonAgregar());
 }
 
 
 bntGoogle.addEventListener('click', async() => {
     await registerUserGoogle("SESSION");
-    $('#signUpModal').modal('hide')
+    $('#signUpModal').modal('hide');
     await loadData();
 })
+
 
