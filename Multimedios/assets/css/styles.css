@@ -66,4 +66,16 @@
     margin-left: auto;
     margin-right: auto;
     font-size: 4ch;
+    font-weight: bold;
+
+}
+.divEditor{
+    border: 10px;
+    background-color: #111;
+    text-align: center; 
+}
+.menu {
+    text-align: left;
+    font-weight: bold;
+    font-family: Courier;
 }

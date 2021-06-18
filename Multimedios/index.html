@@ -15,17 +15,22 @@
 <body>
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">About</a>
+        <a href="#">Configurar Dispositivo</a>
         <a href="#">Services</a>
         <a href="#">Clients</a>
         <a href="#">Contact</a>
         <div id="divlogin">
-            <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span id="labelLoginTexto">Login or SignUp</span></a>
+            <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user" ></i></i> <span id="labelLoginTexto">Login or SignUp</span> </a>
         </div>
         
       </div>
-      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
-      
+     
+      <div class="divEditor">
+        <h3 id= "titulo" style="color:white" > Sound Sensor </h3>
+        
+      </div>
+    
+      <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
       <script>
       function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
