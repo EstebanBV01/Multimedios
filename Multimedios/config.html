@@ -43,7 +43,17 @@
     }
   </script>
 
+  <br>
+
   <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3><i class="bi bi-wrench"></i><i class="bi bi-cpu"></i></i> Ajustes generales del dispositivo</h3>
+      </div>
+    </div>
+
+    <br>
+
     <div class="row">
       <div class="col">
         <div class="form-check form-switch">
@@ -54,7 +64,9 @@
       <div class="col">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" id="TestSW">
-          <label class="form-check-label" for="TestSW">Modo prueba</label>
+          <label class="form-check-label" for="TestSW">Modo prueba  <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            title="Permite probar la sensibilidad configurada sin disparar alertas.
+Desactívalo cuando estés listo o de lo contrario no se enviará la notificación aunque la alarma esté activa."></i></label>
         </div>
       </div>
     </div>
@@ -66,13 +78,13 @@
         <label for="SensSlider" class="form-label">Sensibilidad de la alarma:</label>
       </div>
       <div class="col-1">
-        <i class="bi bi-volume-down" style="float: right; font-size: 2rem;"></i>
+        <i class="bi bi-volume-down" style="float: right; font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Menor sensibilidad"></i>
       </div>
       <div class="col-5">
         <input type="range" class="form-range" id="SensSlider">
       </div>
       <div class="col-1">
-        <i class="bi bi-volume-up" style="font-size: 2rem;"></i>
+        <i class="bi bi-volume-up" style="font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mayor sensibilidad"></i>
       </div>
     </div>
 
@@ -94,8 +106,16 @@
 
     <div class="row">
       <div class="col">
-        <label class="form-check-label" for="message"><i class="bi bi-bell"></i><i class="bi bi-envelope"></i> Mensaje de notificación</label>
-        <textarea class="form-control" id="message" aria-valuetext="Texto de ejemplo" required></textarea>
+        <label class="form-check-label" for="message"><i class="bi bi-envelope"></i><i class="bi bi-bell"></i> Mensaje de notificación</label>
+        <textarea class="form-control" id="message" placeholder="Este campo debe llenarse"></textarea>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-primary" onclick="applyGeneralSettings()"><i class="bi bi-check2"></i> Aplicar cambios</button>
       </div>
     </div>
   </div>
@@ -110,7 +130,7 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3><i class="bi bi-wrench"></i><i class="bi bi-clock"></i><i class="bi bi-calendar"></i> Ajustar hora y fecha del dispositivo</h3>
+        <h3><i class="bi bi-wrench"></i><i class="bi bi-clock"> </i><i class="bi bi-calendar"></i> Ajustar hora y fecha del dispositivo</h3>
       </div>
     </div>
 
@@ -178,6 +198,14 @@
         <input type="date" class="form-control" id="date">
       </div>
     </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-secondary" onclick="applyDateTimeSettings()"><i class="bi bi-check2"></i><i class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Aplicar cambios en hora y fecha</button>
+      </div>
+    </div>
   </div>
 
 
@@ -191,7 +219,7 @@
 
       // Actualizar los campos de fecha y hora a los actuales del cliente (ya que no los puedo obtener directamente del dispositivo)
       let currentTime = new Date();
-      console.log(currentTime);
+      //console.log(currentTime);
 
       let h = currentTime.getHours();
 
@@ -209,6 +237,15 @@
       document.getElementById("date").value = dateStr.substring(0, dateStr.indexOf('T'));
 
     });
+
+    function applyGeneralSettings() {
+      if (document.getElementById("message").value.length === 0) alert("El campo del mensaje de notificación no debe estar vacío");
+
+    }
+
+    function applyDateTimeSettings() {
+
+    }
   </script>
 </body>
 
