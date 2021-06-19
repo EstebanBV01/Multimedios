@@ -5,7 +5,10 @@
     background-color: white;
     border-width: 0px;
 }
-
+body {
+    background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg");
+    background-color: #cccccc;
+  }
 .card {
     margin-right: auto;
     margin-left: auto;
@@ -67,15 +70,52 @@
     margin-right: auto;
     font-size: 4ch;
     font-weight: bold;
-
+    border-radius: 10px;
 }
 .divEditor{
     border: 10px;
-    background-color: #111;
     text-align: center; 
 }
 .menu {
     text-align: left;
     font-weight: bold;
     font-family: Courier;
+}
+#intro{
+    margin-top: 60px;
+    font-family: Courier;
+}
+#subtitulos{
+    font-weight: bold;
+    font-family: Courier;
+    color: black;
+}
+#subContainer{
+    margin-top: 60px;
+    border-radius: 60px;
+}
+#nombre{
+    font-family: Courier;
+    color: black;
+    text-align: center;
+}
+#logo{
+    margin-left: 200px;
+}
+#sound{
+    margin-left: 100px;
+}
+#contenedor{
+    margin-top: 60px;
+}
+#barra{
+    width: 100px;
+    height: 0px;  
+}
+#labelLogin{
+    text-align: right;
+    color: black;
+}
+#col{
+    border-radius: 10px;
 }
