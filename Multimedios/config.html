@@ -15,7 +15,6 @@
   <script src="https://kit.fontawesome.com/5fc4fd5412.js" crossorigin="anonymous"></script>
   <script src="assets/references/bootstrap.min.js"></script>
   <script src="assets/JS/firebase.js"></script>
-  <script src="assets/JS/app.js"></script>
   <script src="assets/JS/database.js"></script>
   <title>Configurar el dispositivo</title>
 </head>
@@ -31,7 +30,7 @@
       <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span
           id="labelLoginTexto">Login or SignUp</span></a>
     </div>
-</div>
+  </div>
   <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
   <script>
     function openNav() {
@@ -61,12 +60,12 @@
 
     <div class="row">
       <div class="col">
-        <label for="SensBar" class="form-label">Sensibilidad de la alarma</label>
+        <label for="SensSlider" class="form-label">Sensibilidad de la alarma</label>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <input type="range" class="sensBar" id="customRange1">
+        <input type="range" class="form-range" id="SensSlider">
       </div>
     </div>
 
@@ -75,24 +74,100 @@
         <label class="form-check-label" for="cooldown">Tiempo de espera entre alertas: </label>
         <input type="number" class="form-control" id="cooldown" min="1" max="60">
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col">
-          <label class="form-check-label" for="message">Mensaje de notifiación</label>
-          <textarea class="form-control" id="message"></textarea>
-        </div>
+    <div class="row">
+      <div class="col">
+        <label class="form-check-label" for="message">Mensaje de notifiación</label>
+        <textarea class="form-control" id="message"></textarea>
+      </div>
     </div>
   </div>
 
 
-  <!-- <script>
-    $(document).ready(function(){
+  <hr>
+  <!-- Aquí va la configuración de fecha y hora -->
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3>Ajustar fecha y hora del dispositivo</h3>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h1>Hora</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <input type="number" class="form-control" id="hour" min="1" max="12">
+      </div>
+      <div class="col">
+        :
+      </div>
+      <div class="col">
+        <input type="number" class="form-control" id="minute" min="0" max="59">
+      </div>
+      <div class="col">
+        :
+      </div>
+      <div class="col">
+        <input type="number" class="form-control" id="second" min="0" max="59">
+      </div>
+      <div class="col">
+        <select class="form-select" id="halfDay">
+          <option value="a" selected>a.m.</option>
+          <option value="p">p.m.</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <h1>Fecha</h1>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <input type="date" id="date">
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    $(document).ready(function () {
       // Traer el ID del medidor seleccionado
       let devID = "abcdefgihj";
 
-      // Cargar la config y setearla a los elementos de control
+      // Cuál es el nombre de la colección de configs de dispositivos?
+      //let settings = getData("Devices", devID); // Recordar que los parámetros son (colección, documento)
+
+      // Actualizar los campos de fecha y hora a los actuales del cliente (ya que no los puedo obtener directamente del dispositivo)
+      let currentTime = new Date();
+      console.log(currentTime);
+
+      let h = currentTime.getHours();
+
+      // Convertir formato 24h a formato 12h
+      if (h === 0) document.getElementById("hour").value = 12;
+      else if (h > 12) {
+        document.getElementById("hour").value = h - 12;
+        document.getElementById("halfDay").value = "p";
+      } else document.getElementById("hour").value = h;
+
+      document.getElementById("minute").value = currentTime.getMinutes();
+      document.getElementById("second").value = currentTime.getSeconds();
+
+      let dateStr = currentTime.toISOString();
+      document.getElementById("date").value = dateStr.substring(0, dateStr.indexOf('T'));
+
     });
-  </script> -->
+  </script>
 </body>
 
 </html>
