@@ -104,8 +104,8 @@ btnAgregarMedidor.addEventListener('click', e => {
 
 
 const loadData = async() => {
-    let resultado = await getData();
-
+    let resultado = await getData("Users", firebase.auth().currentUser.uid); // Esto es diferente ya que hice el método más reutilizable
+    resultado = Object.entries(resultado.WaterMeters); // Espero que al hacer esto evite romper lo que ya han implementado
     let customName;
     let id;
     let lastValue;

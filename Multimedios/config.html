@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="assets/references/bootstrap.min.css">
   <link rel="stylesheet" href="assets/css/styles.css">
   <link rel="stylesheet" href="assets/css/sidebar.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <script src="assets/references/jquery.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
@@ -15,7 +16,6 @@
   <script src="https://kit.fontawesome.com/5fc4fd5412.js" crossorigin="anonymous"></script>
   <script src="assets/references/bootstrap.min.js"></script>
   <script src="assets/JS/firebase.js"></script>
-  <script src="assets/JS/app.js"></script>
   <script src="assets/JS/database.js"></script>
   <title>Configurar el dispositivo</title>
 </head>
@@ -31,7 +31,7 @@
       <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span
           id="labelLoginTexto">Login or SignUp</span></a>
     </div>
-</div>
+  </div>
   <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
   <script>
     function openNav() {
@@ -43,56 +43,210 @@
     }
   </script>
 
+  <br>
+
   <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3><i class="bi bi-wrench"></i><i class="bi bi-cpu"></i></i> Ajustes generales del dispositivo</h3>
+      </div>
+    </div>
+
+    <br>
+
     <div class="row">
       <div class="col">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" id="AlarmSW">
-          <label class="form-check-label" for="AlarmSW">Alarma</label>
+          <label class="form-check-label" for="AlarmSW"><i class="bi bi-bell"></i> Alarma</label>
         </div>
       </div>
       <div class="col">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" id="TestSW">
-          <label class="form-check-label" for="TestSW">Modo prueba</label>
+          <label class="form-check-label" for="TestSW">Modo prueba  <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="bottom"
+            title="Permite probar la sensibilidad configurada sin disparar alertas.
+Desactívalo cuando estés listo o de lo contrario no se enviará la notificación aunque la alarma esté activa."></i></label>
         </div>
       </div>
     </div>
 
+    <br>
+
     <div class="row">
       <div class="col">
-        <label for="SensBar" class="form-label">Sensibilidad de la alarma</label>
+        <label for="SensSlider" class="form-label">Sensibilidad de la alarma:</label>
+      </div>
+      <div class="col-1">
+        <i class="bi bi-volume-down" style="float: right; font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Menor sensibilidad"></i>
+      </div>
+      <div class="col-5">
+        <input type="range" class="form-range" id="SensSlider">
+      </div>
+      <div class="col-1">
+        <i class="bi bi-volume-up" style="font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mayor sensibilidad"></i>
       </div>
     </div>
+
+    <br>
+
     <div class="row">
       <div class="col">
-        <input type="range" class="sensBar" id="customRange1">
+        <label class="form-check-label" for="cooldown">Tiempo de espera entre alertas:</label>
+      </div>
+      <div class="col-4">
+        <input type="number" class="form-control" id="cooldown" min="5" max="60" value="5">
+      </div>
+      <div class="col-2">
+        <p style="text-align: left;">minutos</p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <label class="form-check-label" for="message"><i class="bi bi-envelope"></i><i class="bi bi-bell"></i> Mensaje de notificación</label>
+        <textarea class="form-control" id="message" placeholder="Este campo debe llenarse"></textarea>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-primary" onclick="applyGeneralSettings()"><i class="bi bi-check2"></i> Aplicar cambios</button>
+      </div>
+    </div>
+  </div>
+
+  <br>
+
+  <hr>
+
+  <!-- Aquí va la configuración de fecha y hora -->
+  <br>
+
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h3><i class="bi bi-wrench"></i><i class="bi bi-clock"> </i><i class="bi bi-calendar"></i> Ajustar hora y fecha del dispositivo</h3>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <h6>Hora</h6>
+      </div>
+    </div>
+
+    <div class="row">
+      
+      <div class="col-2">
+        <p style="text-align: center;">Horas</p>
+      </div>
+      <div class="col-1">
+        <p style="text-align: center;">:</p>
+      </div>
+      <div class="col-2">
+        <p style="text-align: center;">Minutos</p>
+      </div>
+      <div class="col-1">
+        <p style="text-align: center;">:</p>
+      </div>
+      <div class="col-2">
+        <p style="text-align: center;">Segundos</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-2">
+        <input type="number" class="form-control" id="hour" min="1" max="12">
+      </div>
+      <div class="col-1">
+        <p style="text-align: center;">:</p>
+      </div>
+      <div class="col-2">
+        <input type="number" class="form-control" id="minute" min="0" max="59">
+      </div>
+      <div class="col-1">
+        <p style="text-align: center;">:</p>
+      </div>
+      <div class="col-2">
+        <input type="number" class="form-control" id="second" min="0" max="59">
+      </div>
+      <div class="col-2">
+        <select class="form-select" id="halfDay">
+          <option value="a" selected>a.m.</option>
+          <option value="p">p.m.</option>
+        </select>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <h6>Fecha</h6>
       </div>
     </div>
 
     <div class="row">
       <div class="col">
-        <label class="form-check-label" for="cooldown">Tiempo de espera entre alertas: </label>
-        <input type="number" class="form-control" id="cooldown" min="1" max="60">
+        <input type="date" class="form-control" id="date">
       </div>
+    </div>
 
-      <div class="row">
-        <div class="col">
-          <label class="form-check-label" for="message">Mensaje de notifiación</label>
-          <textarea class="form-control" id="message"></textarea>
-        </div>
+    <br>
+
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-secondary" onclick="applyDateTimeSettings()"><i class="bi bi-check2"></i><i class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Aplicar cambios en hora y fecha</button>
+      </div>
     </div>
   </div>
 
 
-  <!-- <script>
-    $(document).ready(function(){
+  <script>
+    $(document).ready(function () {
       // Traer el ID del medidor seleccionado
       let devID = "abcdefgihj";
 
-      // Cargar la config y setearla a los elementos de control
+      // Cuál es el nombre de la colección de configs de dispositivos?
+      //let settings = getData("Devices", devID); // Recordar que los parámetros son (colección, documento)
+
+      // Actualizar los campos de fecha y hora a los actuales del cliente (ya que no los puedo obtener directamente del dispositivo)
+      let currentTime = new Date();
+      //console.log(currentTime);
+
+      let h = currentTime.getHours();
+
+      // Convertir formato 24h a formato 12h
+      if (h === 0) document.getElementById("hour").value = 12;
+      else if (h > 12) {
+        document.getElementById("hour").value = h - 12;
+        document.getElementById("halfDay").value = "p";
+      } else document.getElementById("hour").value = h;
+
+      document.getElementById("minute").value = currentTime.getMinutes();
+      document.getElementById("second").value = currentTime.getSeconds();
+
+      let dateStr = currentTime.toISOString();
+      document.getElementById("date").value = dateStr.substring(0, dateStr.indexOf('T'));
+
     });
-  </script> -->
+
+    function applyGeneralSettings() {
+      if (document.getElementById("message").value.length === 0) alert("El campo del mensaje de notificación no debe estar vacío");
+
+    }
+
+    function applyDateTimeSettings() {
+
+    }
+  </script>
 </body>
 
 </html>

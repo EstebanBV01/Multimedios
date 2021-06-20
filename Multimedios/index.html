@@ -13,31 +13,94 @@
 </head>
 
 <body>
-    <div id="mySidenav" class="sidenav">
+    <!-- <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#">About</a>
+        <a href="#">Configurar Dispositivo</a>
         <a href="#">Services</a>
         <a href="#">Clients</a>
         <a href="#">Contact</a>
         <div id="divbtnAgregar"></div>
         <div id="divlogin">
-            <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span id="labelLoginTexto">Login or SignUp</span></a>
+            <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user" ></i></i> <span id="labelLoginTexto">Login or SignUp</span> </a>
         </div>
+        
+      </div>
+     <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+      <script>
+      function openNav() {
+        document.getElementById("mySidenav").style.width = "250px";
+      }
+      
+      function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+      }
+      </script>
+      <div id="Cards" class="container-fluid"></div> -->
 
-    </div>
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+      <div class="w3-container w3-teal">
+        <div class="divEditor">
+            <h1 id="barra" style="color:black" > </h1>
+            <div id="divlogin">
+                <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user" ></i></i> <span id="labelLoginTexto">Login or SignUp</span> </a>
+            </div>
+          </div>
+      </div>
+     
 
-    <script>
-        function openNav() {
-            document.getElementById("mySidenav").style.width = "250px";
-        }
+      <div id="contenedor" class="container">
+        <div class="row">
+            <div class="col-sm-4"> 
+                <img id="sound" src= "assets/images/unnamed.png"  width="60" height="60">
+            </div>
+          <div class="col-sm-4">
+            <div  id="col" class="w3-container w3-teal">
+                <div class="divEditor">
+                    <h3 id= "titulo" style="color:black" > Sound Sensor </h3>
+                  </div>
+              </div>
+          </div>
+          <div class="col-sm-4">
+            <img id="logo" src= "assets/images/logo2.png"  width="150" height="150">
+          </div>
+        </div>
+      </div>
 
-        function closeNav() {
-            document.getElementById("mySidenav").style.width = "0";
-        }
-    </script>
-    <div id="Cards" class="container-fluid"></div>
-    <!--  -->
+      <div class="container" id="subContainer">
+        <div class="row">
+          <div class="col-sm-3">
+            <div id="col"  class="w3-container w3-teal">
+                    <div>
+                        <h4 id="subtitulos" style="text-align:center">Creadores: </h4>
+                        <div id="nombre">
+                            <p>Maria Jesus Rodriguez</p>
+                            <p>Esteban Barrantes</p>
+                            <p>Glenda Rodriguez</p>
+                            <p>Jerry Rivera</p>
+                        </div>
+                    </div>      
+              </div>
+          </div>
+          <div class="col-sm-3"></div>
+          <div class="col-sm-5">
+            <div id="col" class="w3-container w3-teal">
+                <div>
+                    <h4 id="subtitulos" style="text-align:center">Descripcion del producto </h4>
+                    <div id="nombre">
+                        <p>Este disposito tiene como finalidad principal, medir la cantidad de ruido, existente en el ambiente
+                            con el proposito de poder enviar una alerta a las personas que se encuentran cerca, avisando que por favor 
+                            no hagan tanto ruido.
+                        </p>
+                    </div>
+                </div>      
+          </div>
+          </div>
+        </div>
+      </div>
+
+     
+     
+
+<!--  -->
     <!-- <div id="divlogin">
         <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span id="labelLoginTexto">Login or SignUp</span></a>
     </div>
@@ -96,25 +159,25 @@
     <!-- nuevo modal -->
     <div class="modal fade" id="modalAgregarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Activar Medidor</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-
-                    <div class="mb-3">
-                        <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
-                        <input type="text" class="form-control" id="inputId">
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="btnAgregarMedidor" class="btn btn-primary">Agregar el Medidor</button>
-                </div>
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Activar Medidor</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+
+                <div class="mb-3">
+                    <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
+                    <input type="text" class="form-control" id="inputId">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="btnAgregarMedidor" class="btn btn-primary">Agregar el Medidor</button>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
     <!--  -->
 
     <!-- <h1 id="h1UserName" class="h1">Nombre</h1> -->
@@ -126,11 +189,11 @@
     <script src="assets/JS/firebase.js"></script>
     <script src="assets/JS/registro.js"></script>
     <script src="assets/JS/login.js"></script>
-    <script src="assets/classes/Day.js"></script>
     <script src="assets/JS/app.js"></script>
     <script src="assets/JS/addMeter.js"></script>
     <script src="assets/JS/database.js"></script>
-
-    <scr </body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"><scr 
+</body>
 
 </html>
