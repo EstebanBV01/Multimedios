@@ -4,12 +4,14 @@ class Device {
     updateConfig;
     lastValue;
     type;
-    constructor(customName, id, updateConfig, lastValue, type) {
+    activated;
+    constructor(customName, id, updateConfig, lastValue, type, activated) {
         this.customName = customName;
         this.id = id;
         this.updateConfig = updateConfig;
         this.lastValue = lastValue;
         this.type = type;
+        this.activated = activated;
     }
 
     set setCustomName(customName) {
@@ -45,3 +47,20 @@ class Device {
     }
 
 }
+
+let deviceConverter = {
+    toFirestore: function(device) {
+        return {
+            customName: device.customName,
+            id: device.id,
+            updateConfig: device.updateConfig,
+            lastValue: device.lastValue,
+            type: device.type,
+            activated: device.activated
+        };
+    },
+    fromFirestore: function(snapshot, options) {
+        const data = snapshot.data(options);
+        return new Device(data.customName, data.id, data.updateConfig, data.lastValue, data.type, data.activated);
+    }
+};

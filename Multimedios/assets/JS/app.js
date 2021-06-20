@@ -12,7 +12,6 @@ const btnClick = (btnOn, btnOff) => {
     btnOff.classList.remove("btnOnClick");
 
 }
-console.log(new Day(true, 0));
 
 labelImage.addEventListener('click', async() => {
     let user = firebase.auth().currentUser
@@ -98,14 +97,16 @@ const botonAgregar = () => {
     return a;
 }
 btnAgregarMedidor.addEventListener('click', e => {
-    validateWaterMeter(inputMeterID.value);
+    // validateWaterMeter(inputMeterID.value);
     // addWaterMeter(inputMeterID.value);
+    let db = new DataBase();
+    db.agregarDispositivo(inputMeterID.value);
 })
 
 
 const loadData = async() => {
     let resultado = await getData("Users", firebase.auth().currentUser.uid); // Esto es diferente ya que hice el método más reutilizable
-    resultado = Object.entries(resultado.WaterMeters); // Espero que al hacer esto evite romper lo que ya han implementado
+    resultado = Object.entries(resultado.devices); // Espero que al hacer esto evite romper lo que ya han implementado
     let customName;
     let id;
     let lastValue;
