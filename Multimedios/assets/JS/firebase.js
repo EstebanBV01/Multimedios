@@ -9,4 +9,3 @@ let firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-console.log("FIREBASE READY");
