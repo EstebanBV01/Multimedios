@@ -4,10 +4,10 @@ let btnLogin = document.querySelector("#loginBtn");
 let btnRegistro = document.querySelector("#registroBtn")
 let modal = document.querySelector("#signUpModal");
 let labelImage = document.querySelector("#labelLogin");
-let divbtnAgregar=document.querySelector('#divbtnAgregar');
-let btnAgregarMedidor=document.querySelector("#btnAgregarMedidor");
-let inputMeterID=document.querySelector('#inputId');
-let checkBoxLogin= document.querySelector('#cbLogin');
+let divbtnAgregar = document.querySelector('#divbtnAgregar');
+let btnAgregarMedidor = document.querySelector("#btnAgregarMedidor");
+let inputMeterID = document.querySelector('#inputId');
+let checkBoxLogin = document.querySelector('#cbLogin');
 
 const btnClick = (btnOn, btnOff) => {
     btnOn.classList.add("btnOnClick");
@@ -107,7 +107,7 @@ btnAgregarMedidor.addEventListener('click', e => {
 
 
 const loadData = async() => {
-    let resultado = await getData("Users", firebase.auth().currentUser.uid); // Esto es diferente ya que hice el método más reutilizable
+    let resultado = await getData("Users", await firebase.auth().currentUser.uid); // Esto es diferente ya que hice el método más reutilizable
     resultado = Object.entries(resultado.devices); // Espero que al hacer esto evite romper lo que ya han implementado
     let customName;
     let id;
@@ -170,11 +170,9 @@ const loggedIn = (user) => {
 bntGoogle.addEventListener('click', async() => {
     if (checkBoxLogin.checked) {
         await registerUserGoogle("LOCAL");
-    }else{
+    } else {
         await registerUserGoogle("SESSION");
     }
     $('#signUpModal').modal('hide');
-        await loadData();
+    await loadData();
 })
-
-
