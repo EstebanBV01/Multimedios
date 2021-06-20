@@ -23,21 +23,21 @@
         <div id="divlogin">
             <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span id="labelLoginTexto">Login or SignUp</span></a>
         </div>
-        
-      </div>
-      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
-      
-      <script>
-      function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-      }
-      
-      function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-      }
-      </script>
-      <div id="Cards" class="container-fluid"></div>
-<!--  -->
+
+    </div>
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <div id="Cards" class="container-fluid"></div>
+    <!--  -->
     <!-- <div id="divlogin">
         <a id="labelLogin" class="nav-link" href="#"><i id="labelLoginImage" class="fas fa-user"></i></i> <span id="labelLoginTexto">Login or SignUp</span></a>
     </div>
@@ -96,25 +96,25 @@
     <!-- nuevo modal -->
     <div class="modal fade" id="modalAgregarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Activar Medidor</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-
-                <div class="mb-3">
-                    <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
-                    <input type="text" class="form-control" id="inputId">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Activar Medidor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body">
 
+                    <div class="mb-3">
+                        <label for="inputId" class="form-label">Ingrese el codigo del medidor</label>
+                        <input type="text" class="form-control" id="inputId">
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnAgregarMedidor" class="btn btn-primary">Agregar el Medidor</button>
+                </div>
             </div>
-            <div class="modal-footer">
-              <button type="button" id="btnAgregarMedidor" class="btn btn-primary">Agregar el Medidor</button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
     <!--  -->
 
     <!-- <h1 id="h1UserName" class="h1">Nombre</h1> -->
@@ -126,6 +126,7 @@
     <script src="assets/JS/firebase.js"></script>
     <script src="assets/JS/registro.js"></script>
     <script src="assets/JS/login.js"></script>
+    <script src="assets/classes/Day.js"></script>
     <script src="assets/JS/app.js"></script>
     <script src="assets/JS/addMeter.js"></script>
     <script src="assets/JS/database.js"></script>

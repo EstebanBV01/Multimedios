@@ -4,14 +4,15 @@ let btnLogin = document.querySelector("#loginBtn");
 let btnRegistro = document.querySelector("#registroBtn")
 let modal = document.querySelector("#signUpModal");
 let labelImage = document.querySelector("#labelLogin");
-let divbtnAgregar=document.querySelector('#divbtnAgregar');
-let btnAgregarMedidor=document.querySelector("#btnAgregarMedidor");
-let inputMeterID=document.querySelector('#inputId');
+let divbtnAgregar = document.querySelector('#divbtnAgregar');
+let btnAgregarMedidor = document.querySelector("#btnAgregarMedidor");
+let inputMeterID = document.querySelector('#inputId');
 const btnClick = (btnOn, btnOff) => {
     btnOn.classList.add("btnOnClick");
     btnOff.classList.remove("btnOnClick");
 
 }
+console.log(new Day(true, 0));
 
 labelImage.addEventListener('click', async() => {
     let user = firebase.auth().currentUser
@@ -49,54 +50,54 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 const loggedOut = () => {
     // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
-    document.querySelector("#labelLoginImage").classList.remove("fas","fa-sign-out-alt", "fa-lg");
-    document.querySelector("#labelLoginImage").classList.add("fas","fa-user");
+    document.querySelector("#labelLoginImage").classList.remove("fas", "fa-sign-out-alt", "fa-lg");
+    document.querySelector("#labelLoginImage").classList.add("fas", "fa-user");
     $("#labelLoginTexto").html("Login or SignUp");
     // h1UserName.innerHTML = "Nadie esta logueado";
     $("#userProfileLi").remove();
-    if(divbtnAgregar.firstChild){
-    divbtnAgregar.removeChild(divbtnAgregar.firstChild);
+    if (divbtnAgregar.firstChild) {
+        divbtnAgregar.removeChild(divbtnAgregar.firstChild);
     }
 }
 
 const cardNueva = (customName, id, lastValue) => {
-    let divCard = document.createElement("div");
-    divCard.classList.add("card");
-    let imgCard = document.createElement("img");
-    imgCard.classList.add("card-img-top");
-    imgCard.alt = "Sensor de ruido";
-    imgCard.src = "https://images-na.ssl-images-amazon.com/images/I/71hEtk3aCpL._SL1500_.jpg";
-    divCard.appendChild(imgCard);
-    let divBody = document.createElement("div");
-    divBody.classList.add("card-body");
-    let titleCard = document.createElement("h5");
-    titleCard.classList.add("card-title");
-    titleCard.innerText = customName;
-    divBody.appendChild(titleCard);
-    let paragraphCard = document.createElement("p");
-    paragraphCard.classList.add("card-text");
-    paragraphCard.innerText = lastValue;
-    divBody.appendChild(paragraphCard);
-    let buttonCard = document.createElement("a");
-    buttonCard.classList.add("btn-primary", "btn");
-    buttonCard.innerText = "Configurar";
-    buttonCard.href = id;
-    divBody.appendChild(buttonCard);
-    divCard.appendChild(divBody);
+        let divCard = document.createElement("div");
+        divCard.classList.add("card");
+        let imgCard = document.createElement("img");
+        imgCard.classList.add("card-img-top");
+        imgCard.alt = "Sensor de ruido";
+        imgCard.src = "https://images-na.ssl-images-amazon.com/images/I/71hEtk3aCpL._SL1500_.jpg";
+        divCard.appendChild(imgCard);
+        let divBody = document.createElement("div");
+        divBody.classList.add("card-body");
+        let titleCard = document.createElement("h5");
+        titleCard.classList.add("card-title");
+        titleCard.innerText = customName;
+        divBody.appendChild(titleCard);
+        let paragraphCard = document.createElement("p");
+        paragraphCard.classList.add("card-text");
+        paragraphCard.innerText = lastValue;
+        divBody.appendChild(paragraphCard);
+        let buttonCard = document.createElement("a");
+        buttonCard.classList.add("btn-primary", "btn");
+        buttonCard.innerText = "Configurar";
+        buttonCard.href = id;
+        divBody.appendChild(buttonCard);
+        divCard.appendChild(divBody);
 
-    return divCard;
-}
-// crearUnmedidor
-const botonAgregar=()=>{
-    let a=document.createElement('a');
+        return divCard;
+    }
+    // crearUnmedidor
+const botonAgregar = () => {
+    let a = document.createElement('a');
     a.classList.add("text-secondary")
-    a.innerText="AgregarMedidor"
-    a.addEventListener('click',e=>{
-            $('#modalAgregarMedidor').modal('show');     
+    a.innerText = "AgregarMedidor"
+    a.addEventListener('click', e => {
+        $('#modalAgregarMedidor').modal('show');
     })
     return a;
 }
-btnAgregarMedidor.addEventListener('click',e=>{
+btnAgregarMedidor.addEventListener('click', e => {
     validateWaterMeter(inputMeterID.value);
     // addWaterMeter(inputMeterID.value);
 })
@@ -137,7 +138,7 @@ const loadData = async() => {
 
         divCol.append(card);
         divRow.append(divCol);
-        
+
         counter++;
     }
     cardDiv.append(divContainer);
@@ -146,8 +147,8 @@ const loggedIn = (user) => {
     console.log("logged in !!");
     console.log({ user });
     // $("#labelLoginImage").toggleClass("fas fa-user fas fa-sign-out-alt fa-lg");
-    document.querySelector("#labelLoginImage").classList.remove("fas","fa-user");
-    document.querySelector("#labelLoginImage").classList.add("fas","fa-sign-out-alt", "fa-lg");
+    document.querySelector("#labelLoginImage").classList.remove("fas", "fa-user");
+    document.querySelector("#labelLoginImage").classList.add("fas", "fa-sign-out-alt", "fa-lg");
     $("#labelLoginTexto").html("Salir");
     let picture = document.createElement('img');
     let list = document.createElement("li");
@@ -168,5 +169,3 @@ bntGoogle.addEventListener('click', async() => {
     $('#signUpModal').modal('hide');
     await loadData();
 })
-
-

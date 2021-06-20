@@ -2,36 +2,37 @@ const validateWaterMeter = async(waterMeterUid) => {
 
     let db = firebase.firestore();
     let user = firebase.auth().currentUser;
-    
+    let path = `WaterMeters.${waterMeterUid}`;
     if (user) {
 
-    let docRef= db.collection("WaterMeters").doc(waterMeterUid);
+        let docRef = db.collection("WaterMeters").doc(waterMeterUid);
+        console.log("READY");
 
-    docRef.get().then((doc) => {
-        if (doc.exists&& doc.data().activated==false) {
-            
-            db.collection("Users").doc(user.uid).update({
-                [waterMeterUid]: {
-                    custonName: "Oficina C3",
-                    lastValue: 300
-                }
-            }).then(() => {
-                console.log("Document successfully written!");
-            }).catch((error) => {
-                console.error("Error writing document: ", error);
-            }).catch((error) => {
-                let errorCode = error.code;
-                let errorMessage = error.message;
-                console.log(errorMessage);
-    
-            });
+        docRef.get().then((doc) => {
+            if (doc.exists && doc.data().activated == false) {
 
-        } else {
-            console.log("No such document!");
-        }
-    }).catch((error) => {
-        console.log("Error getting document:", error);
-    });
+                db.collection("Users").doc(user.uid).update({
+                    [path]: {
+                        customName: "Oficina C3",
+                        lastValue: 300
+                    },
+                }).then(() => {
+                    console.log("Document successfully written!");
+                }).catch((error) => {
+                    console.error("Error writing document: ", error);
+                }).catch((error) => {
+                    let errorCode = error.code;
+                    let errorMessage = error.message;
+                    console.log(errorMessage);
+
+                });
+
+            } else {
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
 
     } else {
 
@@ -41,21 +42,21 @@ const validateWaterMeter = async(waterMeterUid) => {
 const addWaterMeter = async(waterMeterUid) => {
     let db = firebase.firestore();
     let user = firebase.auth().currentUser;
-    
+
     if (user) {
 
-    db.collection("WaterMeters").doc(waterMeterUid).set({
-        [waterMeterUid]: {
-            custonName: "Oficina C3",
-            lastValue: 300
-        }
-    })
-    .then(() => {
-        console.log("Document successfully written!");
-    })
-    .catch((error) => {
-        console.error("Error writing document: ", error);
-    });
+        db.collection("WaterMeters").doc(waterMeterUid).set({
+                [waterMeterUid]: {
+                    custonName: "Oficina C3",
+                    lastValue: 300
+                }
+            })
+            .then(() => {
+                console.log("Document successfully written!");
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
 
     } else {
 
