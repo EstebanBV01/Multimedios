@@ -42,13 +42,13 @@
       document.getElementById("mySidenav").style.width = "0";
     }
   </script>
-
+  
   <br>
 
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3><i class="bi bi-wrench"></i><i class="bi bi-cpu"></i></i> Ajustes generales del dispositivo</h3>
+        <h3><i class="bi bi-wrench"></i></i><i class="bi bi-cpu"></i> Ajustes generales del dispositivo</h3>
       </div>
     </div>
 
@@ -75,6 +75,17 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
     <div class="row">
       <div class="col">
+        <label class="form-check-label" for="name"><i class="bi bi-input-cursor-text"></i><i class="bi bi-cpu"></i> Nombre del dispositivo:</label>
+      </div>
+      <div class="col-4">
+        <input type="text" class="form-control" id="name" placeholder="Este campo debe llenarse">
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col">
         <label for="SensSlider" class="form-label">Sensibilidad de la alarma:</label>
       </div>
       <div class="col-1">
@@ -92,7 +103,7 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
     <div class="row">
       <div class="col">
-        <label class="form-check-label" for="cooldown">Tiempo de espera entre alertas:</label>
+        <label class="form-check-label" for="cooldown"><i class="bi bi-clock"></i><i class="bi bi-bell"></i> Tiempo de espera entre alertas:</label>
       </div>
       <div class="col-4">
         <input type="number" class="form-control" id="cooldown" min="5" max="60" value="5">
@@ -205,6 +216,9 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
       <div class="col">
         <button type="button" class="btn btn-secondary" onclick="applyDateTimeSettings()"><i class="bi bi-check2"></i><i class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Aplicar cambios en hora y fecha</button>
       </div>
+      <div class="col">
+        <button type="button" class="btn btn-success" style="float: right;" onclick="updateDateTimeSettings()"><i class="bi bi-arrow-repeat"></i><i class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Actualizar automáticamente</button>
+      </div>
     </div>
   </div>
 
@@ -219,7 +233,6 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
       // Actualizar los campos de fecha y hora a los actuales del cliente (ya que no los puedo obtener directamente del dispositivo)
       let currentTime = new Date();
-      //console.log(currentTime);
 
       let h = currentTime.getHours();
 
@@ -239,12 +252,18 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
     });
 
     function applyGeneralSettings() {
+      if (document.getElementById("name").value.length === 0) alert("El campo del nombre no debe estar vacío");
+
       if (document.getElementById("message").value.length === 0) alert("El campo del mensaje de notificación no debe estar vacío");
 
     }
 
     function applyDateTimeSettings() {
 
+    }
+
+    function updateDateTimeSettings() {
+      
     }
   </script>
 </body>

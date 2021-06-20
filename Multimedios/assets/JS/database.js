@@ -16,7 +16,41 @@ const getData = async(collName, docName) => {
             console.log("No such document!");
         }
     }).catch((error) => {
-        console.log("Error getting document:", error);
+        console.log("Error getting document: ", error);
+    });
+    return result;
+}
+
+const setData = async(collName, docName, content) => {
+
+    let db = firebase.firestore();
+
+    var docRef = db.collection(collName).doc(docName);
+    let result;
+
+    await docRef.set(content).then(() => {
+        console.log("Document successfully overwritten!");
+        result = true;
+    }).catch((error) => {
+        console.log("Error getting document: ", error);
+        result = false;
+    });
+    return result;
+}
+
+const addData = async(collName, docName, data) => {
+
+    let db = firebase.firestore();
+
+    var docRef = db.collection(collName).doc(docName);
+    let result;
+
+    await docRef.add(data).then(() => {
+        console.log("Data successfully added to the document!");
+        result = true;
+    }).catch((error) => {
+        console.log("Error getting document: ", error);
+        result = false;
     });
     return result;
 }
