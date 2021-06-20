@@ -7,6 +7,8 @@ let labelImage = document.querySelector("#labelLogin");
 let divbtnAgregar=document.querySelector('#divbtnAgregar');
 let btnAgregarMedidor=document.querySelector("#btnAgregarMedidor");
 let inputMeterID=document.querySelector('#inputId');
+let checkBoxLogin= document.querySelector('#cbLogin');
+
 const btnClick = (btnOn, btnOff) => {
     btnOn.classList.add("btnOnClick");
     btnOff.classList.remove("btnOnClick");
@@ -164,9 +166,13 @@ const loggedIn = (user) => {
 
 
 bntGoogle.addEventListener('click', async() => {
-    await registerUserGoogle("SESSION");
+    if (checkBoxLogin.checked) {
+        await registerUserGoogle("LOCAL");
+    }else{
+        await registerUserGoogle("SESSION");
+    }
     $('#signUpModal').modal('hide');
-    await loadData();
+        await loadData();
 })
 
 
