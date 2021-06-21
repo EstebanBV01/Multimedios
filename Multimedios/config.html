@@ -42,7 +42,7 @@
       document.getElementById("mySidenav").style.width = "0";
     }
   </script>
-  
+
   <br>
 
   <div class="container">
@@ -64,8 +64,9 @@
       <div class="col">
         <div class="form-check form-switch">
           <input class="form-check-input" type="checkbox" id="TestSW">
-          <label class="form-check-label" for="TestSW">Modo prueba  <i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="bottom"
-            title="Permite probar la sensibilidad configurada sin disparar alertas.
+          <label class="form-check-label" for="TestSW">Modo prueba <i class="bi bi-info-circle" data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Permite probar la sensibilidad configurada sin disparar alertas.
 Desactívalo cuando estés listo o de lo contrario no se enviará la notificación aunque la alarma esté activa."></i></label>
         </div>
       </div>
@@ -75,7 +76,8 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
     <div class="row">
       <div class="col">
-        <label class="form-check-label" for="name"><i class="bi bi-input-cursor-text"></i><i class="bi bi-cpu"></i> Nombre del dispositivo:</label>
+        <label class="form-check-label" for="name"><i class="bi bi-input-cursor-text"></i><i class="bi bi-cpu"></i>
+          Nombre del dispositivo:</label>
       </div>
       <div class="col-4">
         <input type="text" class="form-control" id="name" placeholder="Este campo debe llenarse">
@@ -89,13 +91,15 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
         <label for="SensSlider" class="form-label">Sensibilidad de la alarma:</label>
       </div>
       <div class="col-1">
-        <i class="bi bi-volume-down" style="float: right; font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Menor sensibilidad"></i>
+        <i class="bi bi-volume-down" style="float: right; font-size: 2rem;" data-bs-toggle="tooltip"
+          data-bs-placement="bottom" title="Menor sensibilidad"></i>
       </div>
       <div class="col-5">
         <input type="range" class="form-range" id="SensSlider">
       </div>
       <div class="col-1">
-        <i class="bi bi-volume-up" style="font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Mayor sensibilidad"></i>
+        <i class="bi bi-volume-up" style="font-size: 2rem;" data-bs-toggle="tooltip" data-bs-placement="bottom"
+          title="Mayor sensibilidad"></i>
       </div>
     </div>
 
@@ -103,7 +107,8 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
     <div class="row">
       <div class="col">
-        <label class="form-check-label" for="cooldown"><i class="bi bi-clock"></i><i class="bi bi-bell"></i> Tiempo de espera entre alertas:</label>
+        <label class="form-check-label" for="cooldown"><i class="bi bi-clock"></i><i class="bi bi-bell"></i> Tiempo de
+          espera entre alertas:</label>
       </div>
       <div class="col-4">
         <input type="number" class="form-control" id="cooldown" min="5" max="60" value="5">
@@ -117,7 +122,8 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
     <div class="row">
       <div class="col">
-        <label class="form-check-label" for="message"><i class="bi bi-envelope"></i><i class="bi bi-bell"></i> Mensaje de notificación</label>
+        <label class="form-check-label" for="message"><i class="bi bi-envelope"></i><i class="bi bi-bell"></i> Mensaje
+          de notificación</label>
         <textarea class="form-control" id="message" placeholder="Este campo debe llenarse"></textarea>
       </div>
     </div>
@@ -126,7 +132,8 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-primary" onclick="applyGeneralSettings()"><i class="bi bi-check2"></i> Aplicar cambios</button>
+        <button type="button" class="btn btn-primary" onclick="applyGeneralSettings()"><i class="bi bi-check2"></i>
+          Aplicar cambios</button>
       </div>
     </div>
   </div>
@@ -141,7 +148,8 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
   <div class="container">
     <div class="row">
       <div class="col">
-        <h3><i class="bi bi-wrench"></i><i class="bi bi-clock"> </i><i class="bi bi-calendar"></i> Ajustar hora y fecha del dispositivo</h3>
+        <h3><i class="bi bi-wrench"></i><i class="bi bi-clock"> </i><i class="bi bi-calendar"></i> Ajustar hora y fecha
+          del dispositivo</h3>
       </div>
     </div>
 
@@ -154,7 +162,7 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
     </div>
 
     <div class="row">
-      
+
       <div class="col-2">
         <p style="text-align: center;">Horas</p>
       </div>
@@ -214,10 +222,13 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
     <div class="row">
       <div class="col">
-        <button type="button" class="btn btn-secondary" onclick="applyDateTimeSettings()"><i class="bi bi-check2"></i><i class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Aplicar cambios en hora y fecha</button>
+        <button type="button" class="btn btn-secondary" onclick="applyDateTimeSettings()"><i class="bi bi-check2"></i><i
+            class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Aplicar cambios en hora y fecha</button>
       </div>
       <div class="col">
-        <button type="button" class="btn btn-success" style="float: right;" onclick="updateDateTimeSettings()"><i class="bi bi-arrow-repeat"></i><i class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Actualizar automáticamente</button>
+        <button type="button" class="btn btn-success" style="float: right;" onclick="updateDateTimeSettings()"><i
+            class="bi bi-arrow-repeat"></i><i class="bi bi-clock"></i> <i class="bi bi-calendar"></i> Actualizar
+          automáticamente</button>
       </div>
     </div>
   </div>
@@ -226,10 +237,34 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
   <script>
     $(document).ready(function () {
       // Traer el ID del medidor seleccionado
-      let devID = "abcdefgihj";
+      let devID = "abcdefghij";
+
+      let settings = null;
 
       // Cuál es el nombre de la colección de configs de dispositivos?
-      //let settings = getData("Devices", devID); // Recordar que los parámetros son (colección, documento)
+      getData("Devices", devID).then( // Recordar que los parámetros son (colección, documento)
+        function (data) {settings = data;}
+      );
+
+      if (settings !== null) {
+        // De momento voy a hacer supuestos con los nombres ya que no conozco la definición de la estructura del documento
+        document.getElementById("AlarmSW").checked = settings.alarmEnabled;
+        document.getElementById("TestSW").checked = settings.testEnabled;
+        document.getElementById("name").value = settings.name;
+        document.getElementById("SensSlider").value = settings.sensitivity;
+        document.getElementById("cooldown").value = settings.cooldownTime;
+        document.getElementById("message").value = settings.message;
+      } else {
+        let a = document.createElement("div");
+        a.classList.add("alert", "alert-danger");
+        a.setAttribute("role", "alert");
+        a.innerHTML = "<i class=\"bi bi-exclamation-triangle-fill\" style=\"font-size: 2rem;\"></i> "
+        + "No se pudo cargar la configuración del dispositivo. Asegúrese de que esté registrado, o sino recargue la página de nuevo "
+        + "verificando una buena conexión a internet.";
+
+        document.body.insertBefore(a, document.body.childNodes[0]);
+      }
+
 
       // Actualizar los campos de fecha y hora a los actuales del cliente (ya que no los puedo obtener directamente del dispositivo)
       let currentTime = new Date();
@@ -263,7 +298,7 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
     }
 
     function updateDateTimeSettings() {
-      
+
     }
   </script>
 </body>
