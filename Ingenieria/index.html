@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  
+    <link rel="stylesheet" href="assets/references/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+
+    <title>AquaMetrics</title>
+</head>
+
+<body >
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a id="labelLogin" href="#"><i id="labelLoginImage" class="fas fa-user"></i> </i> <span
+                id="labelLoginTexto">Login or SignUp</span> </a>
+        <div id="divbtnAgregar"></div>
+    </div>
+    <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <div class="container" id="container" style="background-color:white;">
+        <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-4">
+                <img id="logo" src="assets/images/logo.png" width="350" height="350">
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <div class="row">
+            <div style="text-align: right;" id="nombres" class="col-sm-5">
+                <div>
+                    <h4 id="subtitulos" style="text-align:center">Creadores: </h4>
+                    <div style="text-align:center" id="nombre">
+                        <p>Esteban Barrantes</p>
+                        <p>Glenda Rodriguez</p>
+                        <p>Maria Rodriguez</p>
+                        <p>Jerry Rivera</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+            <div style=" text-align: center;" id="nombres" class="col-sm-5">
+                <div>
+                    <h4 id="subtitulos" style="text-align:center">Descripcion del producto </h4>
+                    <div style="text-align:justify" id="descipcion">
+                        <p>Este dispositivo tiene como finalidad principal, medir la cantidad de ruido, existente en el
+                            ambiente con el proposito de poder enviar una alerta a las personas que se encuentran cerca,
+                            avisando que por favor no hagan tanto ruido.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- modal login registro -->
+    <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¡Bienvenido!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form action="" id="signUpForm">
+                    <div class="modal-body">
+                        <label id='loginBtn' class="btn btn-light btnOnClick">Login</label>
+                        <label id='registroBtn' class="btn btn-light">Registro</label>
+
+
+                        <div class="form-group">
+                            <div class="mb-3 row">
+                                <label id="labelEmail" for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputEmail"
+                                        placeholder="email@example.com" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row">
+                                <label id="labelPassword" for="inputPassword"
+                                    class="col-sm-2 col-form-label">Contraseña</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="inputPassword" required>
+                                </div>
+                            </div>
+                            <div class="mb-3 row" id="divConfirmPassword">
+                                <label id="labelPassword" for="inputPassword" class=" col-form-label">Confirmar
+                                    contraseña</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="inputConfirmPassword" required>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <div id="divCheck" class="form-check">
+                            <input class="form-check-input ms-auto" type="checkbox" value="" id="cbLogin"
+                                name="cdLogin">
+                            <label class="form-check-label ms-auto" for="cdLogin">
+                                Mantener la sesión
+                            </label>
+                        </div>
+                        <button id='btnGoogle' type="button" class="btn btn-outline-danger"><i
+                                class="fab fa-google"></i> Google</button>
+                        <button id="btnConfirm_loginRegist" type="submit" class="btn btn-primary">Confirmar</button>
+
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- modal mensajes -->
+    <div class="modal fade" id="modalMessages" tabindex="-1" aria-labelledby="modalMessages" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#AA3939; color: cornsilk;">
+                    <h5 class="modal-title" id="exampleModalLabel">Error</h5>
+                </div>
+                <div class="modal-body">
+                    <p id="modalContent"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script src="https://kit.fontawesome.com/5fc4fd5412.js" crossorigin="anonymous"></script>
+    <script src="assets/references/bootstrap.min.js"></script>
+    <script src="assets/JS/firebase.js"></script>
+
+    <script src="assets/classes/Database.js"></script>
+    <script src="assets/JS/app.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <scr </body> </html>

@@ -1,0 +1,167 @@
+#loginBtn,
+#registroBtn {
+    cursor: default !important;
+    margin-bottom: 25px;
+    background-color: white;
+    border-width: 0px;
+}
+
+.hideElement {
+    display: none;
+}
+
+.showElement {
+    display: block;
+}
+
+
+#btnAgregarMedidor{
+    align-self: flex-end;
+}
+#headerContenido {
+    flex-direction: column;
+    align-items: center;
+}
+
+body {
+    /* background-image: url("https://www.allwhitebackground.com/images/6/Geometric-Background-Free-Image.jpg"); */
+    background-color: rgb(240, 240, 240);
+}
+
+.card {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 15rem;
+}
+
+#Cards {
+
+    width: 80%;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+
+
+#recordarCheck {
+    justify-content: flex-start
+}
+
+#userPicture {
+    height: 40px;
+    width: 40px;
+    margin-right: 10px;
+}
+
+#labelPassword,
+#labelEmail {
+    margin-left: 10px;
+}
+
+#inputPassword,
+#inputEmail,
+#inputConfirmPassword {
+    margin-left: 10px;
+}
+
+#labelLoginimage {
+    float: right;
+}
+
+.btnOnClick {
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-position: under;
+    text-decoration-color: teal;
+    font-weight: bold;
+    color: teal;
+}
+
+#titulo {
+
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 80px;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.divEditor {
+    border: 10px;
+    text-align: center;
+}
+
+.menu {
+    text-align: left;
+    font-weight: bold;
+
+}
+
+#intro {
+    margin-top: 60px;
+
+}
+
+#subtitulos {
+    font-weight: bold;
+
+    color: black;
+    font-size: 30px;
+}
+
+#subContainer {
+    margin-top: 60px;
+    border-radius: 60px;
+}
+
+#nombre {
+  
+    color: black;
+    text-align: center;
+    font-size: 20px;
+    margin-left: 40px;
+    margin-right: 30px;
+}
+
+#logo {
+    margin-left: 150px;
+    margin-top: 5px;
+}
+
+#sound {
+    margin-left: 100px;
+}
+
+#contenedor {
+    margin-top: 60px;
+    background-color: "#337CAD";
+}
+
+#barra {
+    width: 100px;
+    height: 0px;
+}
+
+#labelLogin {
+    text-align: left;
+    color: white;
+}
+
+#col {
+    border-radius: 10px;
+}
+
+#descipcion {
+
+    font-size: 20px;
+    margin-left: 100;
+    margin-right: 30px;
+}
+
+#container {
+    border-radius: 30px;
+}

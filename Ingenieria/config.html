@@ -1,0 +1,180 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/references/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/config.css">
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a id="btnHome" href="#index">Home</a>
+        <a id="btnAgregar" href="#">Agregar Dispositivo</a>
+        <a href="#">nombre Dispositivo</a>
+        <a id="btnEliminar" href="#">Eliminar Dispositivo</a>
+        <a id="salir" href="#"><i id="salirImage" class="fas fa-sign-out-alt"></i></i> <span>Salir</span> </a>
+        <!-- <div id="divbtnAgregar"></div> -->
+    </div>
+    <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+
+    <div id="containerForm" class=" shadow p-3 mb-5 bg-white rounded container bg-light text-dark rounded">
+        <div id="headerConfiguracion">
+            <div id="headerContenido">
+                <h3>Configuración</h3>
+            </div>
+
+        </div>
+        <div id="contenidoTabs" class="d-flex">
+            <div id="menuTabs" class="nav  d-flex nav-pills me-3" id="v-pills-tab" role="tablist"
+                aria-orientation="vertical">
+                <button class="nav-link active" id="v-pills-nombre-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-nombre" type="button" role="tab" aria-controls="v-pills-nombre"
+                    aria-selected="true">Nombre</button>
+                <button class="nav-link" id="v-pills-funciones-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-funciones" type="button" role="tab" aria-controls="v-pills-funciones"
+                    aria-selected="false">Funciones</button>
+                <button class="nav-link" id="v-pills-usuarios-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-usuarios" type="button" role="tab" aria-controls="v-pills-usuarios"
+                    aria-selected="false">Usuarios</button>
+                <button class="nav-link" id="v-pills-horarios-tab" data-bs-toggle="pill"
+                    data-bs-target="#v-pills-horarios" type="button" role="tab" aria-controls="v-pills-horarios"
+                    aria-selected="false">Horarios</button>
+            </div>
+            <div id="divCargando" class="showElement">
+                <div class="spinner-border  text-primary" style="width: 6rem; height: 6rem;" role="status">
+
+                </div>
+            </div>
+
+            <div id="mensajeError" class="hideElement container mx-auto">
+                <h3 id="noMedidores">Selecciona un dispositivo para empezar</h3>
+                <a class="btn btn-primary" href="/Ingenieria/loged.html"> Mostrar Dispositivos </a>
+            </div>
+            <div class="hideElement container-sm tab-content" id="v-pills-tabContent">
+                <div class=" mx-auto tab-pane fade show active" id="v-pills-nombre" role="tabpanel"
+                    aria-labelledby="v-pills-nombre-tab">
+                    <form>
+                        <div id="seccion1" class="form-group mx-auto ">
+                            <label for="nuevoNombreInput">Nuevo nombre</label>
+                            <input type="text" class="form-control" id="nuevoNombreInput" aria-describedby="emailHelp"
+                                placeholder="Ingresa un nombre clave" required>
+                            <small id="emailHelp" class="form-text text-muted">Trata de utilizar nombres
+                                distintivos.</small>
+                        </div>
+                        <div id="seccion2" class="form-group  mx-auto">
+                            <label for="exampleInputPassword1">Nombre actual</label>
+                            <input type="text" class="form-control " id="nombreActual" placeholder="No hay nada aún..."
+                                disabled readonly>
+                        </div>
+
+
+                        <!--Agregar usuarios-->
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="v-pills-funciones" role="tabpanel"
+                    aria-labelledby="v-pills-funciones-tab">
+                    <div id="funcionesWaterMeter" class="container hideElement">
+
+                    </div>
+                    <div id="funcionesSoundMeterS" class="container hideElement">
+
+                    </div>
+                </div>
+
+
+                <!--Agregar usuarios-->
+                <div class="container mx-auto tab-pane fade" id="v-pills-usuarios" role="tabpanel"
+                    aria-labelledby="v-pills-usuarios-tab">
+
+                    <table id="tablaUsuarios" class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Email</th>
+                                <th scope="col" class="text-center">Rol</th>
+                                <th scope="col" class="text-end">Configurar</th>
+                            </tr>
+                        </thead>
+                        <tbody id="cuerpoTablaUsuarios">
+                           
+                            
+                        </tbody>
+                    </table>
+                    <button type="button" id="agregarUsuario" class="btn btn-primary"><i class="bi bi-person-plus"></i> Agregar</button>
+                </div>
+                <div class="tab-pane fade" id="v-pills-horarios" role="tabpanel" aria-labelledby="v-pills-horarios-tab">
+
+                    <div id="horarioContainer" class="mx-auto container-sm overflow-auto">
+                        <div id="weekly-schedule" class="mx-auto verflow-auto"> </div>
+                    </div>
+                    <div id="seccion3" class=" d-flex justify-content-end">
+                        <button type="submit" class="btn btn-primary">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footerConfiguracion">
+            <div id="footerContenido">
+                <button type="submit" class="btn btn-outline-success"><i style="font-size: 2rem"
+                        class="bi bi-cloud-arrow-up"></i></button>
+                <button id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem"
+                        class="bi bi-trash"></i></button>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="modalEliminarMedidor" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Desactivar Dispositivo</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <h4 class="text-center">¡Atencion: Esta accion es irreversible!</h4>
+                        <label for="inputName" class="form-label">Para desactivar el dispositivo debe confirmarlo con su
+                            nombre.</label>
+                        <input type="text" class="form-control" id="inputName">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnEliminarDispositivo" class="btn btn-danger">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+    <script src="assets/JS/firebase.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="assets/references/bootstrap.min.js"></script>
+    <script src="assets/references/index.js"></script>
+    <script src="assets/classes/Device.js"></script>
+    <script src="assets/classes/Database.js"></script>
+    <script src="assets/JS/config.js"></script>
+
+</body>
+
+</html>

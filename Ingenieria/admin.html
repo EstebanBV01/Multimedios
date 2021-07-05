@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/references/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/sidebar.css">
+    <link rel="stylesheet" href="assets/css/admin.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Admin</title>
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a id="salir" href="#"><i id="salirImage" class="fas fa-sign-out-alt" ></i></i> <span>Salir</span> </a>
+        <!-- <div id="divbtnAgregar"></div> -->
+    </div>
+    <span class="menu" style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menú</span>
+    <script>
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+        }
+    </script>
+    <!--  -->
+    <div class="container">
+        <h1>Admin</h1>
+        <div class="row">
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="https://images-na.ssl-images-amazon.com/images/I/71hEtk3aCpL._SL1500_.jpg" class="card-img-top" alt="...">
+                <div class="card-body d-grid gap-2 col-12 mx-auto">
+                  <h5 class="card-title">Agregar un Medidor</h5>
+                  <br>
+                  <input type="text" name="" id="" placeholder="ingrese un ID">
+                  <br>
+                    <select class="form-select" id="validationCustom04" required>
+                      <option selected disabled value="">tipo de medidor</option>
+                      <option>WaterMeter</option>
+                      <option>SoundMeter</option>
+                    </select>
+                  <br>
+                  <a href="#" class="btn btn-primary">Confirmar</a>
+                </div>
+              </div>
+          </div>
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+                <img src="https://images-na.ssl-images-amazon.com/images/I/71hEtk3aCpL._SL1500_.jpg" class="card-img-top" alt="...">
+                <div class="card-body d-grid gap-2 col-12 mx-auto">
+                  <h5 class="card-title">Eliminar un Medidor</h5>
+                  <br>
+                  <select class="form-select" id="validationCustom04" required>
+                    <option selected disabled value="">se cargarian todos los id</option>
+                    <option>...</option>
+                  </select>
+                  <label for="">meter Type</label>
+                  <label for="">is Activated</label>
+                  <br><br>
+                  <a href="#" class="btn btn-danger">Eliminar</a>
+                </div>
+              </div>
+          </div>
+          <div class="col">
+            <h5>Agregar un administrador</h5>
+            <form style="background-color: aliceblue;">
+              <div class="mb-3 ">
+                <label for="exampleInputEmail1" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1">
+              </div>
+              <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" type="button">Confirmar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
+      <script src="assets/JS/firebase.js"></script>
+      <script src="assets/JS/database.js"></script>
+      <script src="assets/JS/admin.js"></script>
+</body>
+</html>
