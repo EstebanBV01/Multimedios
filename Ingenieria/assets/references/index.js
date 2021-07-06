@@ -1,7 +1,7 @@
 (function ($) {
   'use strict';
   let green = false;
-  console.log("RESTARTING?");
+ 
 
   var DayScheduleSelector = function (el, options) {
     this.$el = $(el);
@@ -83,14 +83,19 @@
   }
 
   DayScheduleSelector.prototype.selectG = function ($slot) {
-    $slot.attr('data-selectedG', 'selected');
+    $slot.attr('data-selectedG', 'selected','green');
   }
   DayScheduleSelector.prototype.deselect = function ($slot) {
     $slot.removeAttr('data-selected');
   }
 
   function isSlotSelected($slot) {
-    return $slot.is('[data-selected]') || $slot.is('[data-selectedG]');
+    if($slot.is('[green]')){
+      return false;
+    }else{
+      return $slot.is('[data-selected]') ;
+    }
+   
   }
 
   function isSlotSelecting($slot) {
@@ -140,7 +145,7 @@
           $(this).attr('data-selecting', 'selecting');
 
         }
-        console.log("GREEN IS ", green);
+     
 
         plugin.$el.find('.time-slot').attr('data-disabled', 'disabled');
         plugin.$el.find('.time-slot[data-day="' + day + '"]').removeAttr('data-disabled');
@@ -153,7 +158,7 @@
 
           if (green) {
             plugin.$el.find('.time-slot[data-day="' + day + '"]').filter('[data-selectingG]')
-              .attr('data-selectedG', 'selected').removeAttr('data-selectingG data-selected');
+              .attr('data-selectedG', 'selected','green').removeAttr('data-selectingG data-selected');
           } else {
             plugin.$el.find('.time-slot[data-day="' + day + '"]').filter('[data-selecting]')
               .attr('data-selected', 'selected').removeAttr('data-selecting data-selectedG');
@@ -161,7 +166,7 @@
 
           plugin.$el.find('.time-slot').removeAttr('data-disabled');
           plugin.$el.trigger('selected.artsy.dayScheduleSelector', [getSelection(plugin, plugin.$selectingStart, $(this))]);
-          console.log("SETTING SELECTION");
+      
           
           plugin.$selectingStart = null;
           green = !green;
@@ -172,17 +177,16 @@
     this.$el.on('mouseover', '.time-slot', function () {
       var $slots, day, start, end, temp;
       if (plugin.isSelecting()) { // if we are in selecting mode
-        console.log("HOVEER");
-        console.log(plugin.$selectingStart.data('day'));
+       
         
         day = plugin.$selectingStart.data('day');
         $slots = plugin.$el.find('.time-slot[data-day="' + day + '"]');
         if(green){
-          console.log("WTF GREEN");
+         
           
           $slots.filter('[data-selectingG]').removeAttr('data-selectingG');
         }else{
-          console.log("WTF RED");
+        
           
           $slots.filter('[data-selecting]').removeAttr('data-selecting');
         }
@@ -190,7 +194,7 @@
         start = $slots.index(plugin.$selectingStart);
         end = $slots.index(this);
 
-        console.log($slots.filter('[data-selectingG]'));
+     
         
 
         if (end < 0) return; // not hovering on the same column
@@ -199,14 +203,14 @@
           start = end;
           end = temp;
         }
-        console.log("GREEN IS IN HOVER  ", green);
+       
 
         if (green) {
-          console.log("GREEN SETTING");
+         
 
           $slots.slice(start, end + 1).attr('data-selectingG', 'selecting');
         } else {
-          console.log("RED SETTING");
+        
           $slots.slice(start, end + 1).attr('data-selecting', 'selecting');
         }
 

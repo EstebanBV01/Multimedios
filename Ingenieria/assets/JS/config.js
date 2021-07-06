@@ -1,9 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  let btnAgregar = document.querySelector("#btnAgregarUsuario");
-  let inputIdMeter = document.querySelector("#inputIdMeter");
-  let inputIdUser = document.querySelector("#inputIdUser");
-  let inputEmail = document.querySelector("#inputEmail");
-  let inputRol = document.querySelector("#inputRol");
+
   let btnEliminar = document.querySelector("#btnEliminarMedidor");
   let mensajeError = document.querySelector("#mensajeError");
   let contenidoConfig = document.querySelector("#v-pills-tabContent");
@@ -12,60 +8,42 @@ document.addEventListener("DOMContentLoaded", async function () {
   let datosDB;
   let btnEliminarModal = document.querySelector("#btnEliminarDispositivo");
   let divCargando = document.querySelector("#divCargando");
-
+  let emailAgregarUsuario = document.querySelector("#emailAgregarUsuario");
+  let formAgregarUsuario = document.querySelector("#formAgregarUsuario");
+  let btnGuardarFecha = document.querySelector("#btnguardarFechas");
+  let fechaCorte = document.querySelector("#slcCutOffDay");
+  let fechaPago = document.querySelector("#slcPayDay");
   let db = new DataBase();
+  let scheduleObject = new Schedule(true);
+
+
 
   meterId = sessionStorage.getItem("id");
 
-  const revisarVariable = async () => {
-    if (meterId === "" || meterId === null) {
-
-      btnEliminar.disable = true;
-      mensajeError.classList.remove("hideElement");
-      mensajeError.classList.add("showElement", 'estiloMensajeError');
-      contenidoConfig.classList.remove("showElement");
-      contenidoConfig.classList.add("hideElement");
-    } else {
-      datosDB = await db.consultarMedidorID(meterId);
-
-      btnEliminar.disable = false;
-      mensajeError.classList.add("hideElement");
-      mensajeError.classList.remove("showElement", "estiloMensajeError");
-      contenidoConfig.classList.add("showElement");
-      contenidoConfig.classList.remove("hideElement");
-      meterName.placeholder = datosDB.customName;
-      nombreActual.placeholder = datosDB.customName;
-    }
-  }
-  
-  await revisarVariable();
-
   const loadUsers = (users) => {
     console.log(users);
-    
+
     for (let index = 0; index < users.length; index++) {
       const user = users[index][1];
-     
-     
-      
-      let newRow = 
-    ` 
-    <tr>
-    <td>${user.email}</td>
-    <td class="text-center">${user.rol}</td>
-    <td class="text-end">
-        <button class="btn btn-primary "><i class="bi bi-sliders"></i></button>
-    </td>
+
+
+
+
+      let newRow =
+        `<tr>
+      <td>${user.email}</td>
+      <td class="text-center">${user.rol}</td>
+      <td class="text-end">
+          <button class="btn btn-primary "><i class="bi bi-sliders"></i></button>
+      </td>
   </tr>`
 
-  $("#cuerpoTablaUsuarios").append(newRow);
+      $("#cuerpoTablaUsuarios").append(newRow);
     }
-    
+
   }
 
-  loadUsers(Object.entries(datosDB.users));
-  divCargando.classList.remove("showElement");
-  divCargando.classList.add("hideElement");
+
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
 
@@ -76,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     startTime: "00:00",
 
     // HH:mm format
-    endTime: "24:00",
+    endTime: "23:30",
 
     // minutes
     interval: 30,
@@ -84,19 +62,59 @@ document.addEventListener("DOMContentLoaded", async function () {
     stringDays: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"],
   });
 
+  const revisarVariable = async () => {
 
-  /*btnAgregar.addEventListener("click", async () => {
-    let db = new DataBase();
+    if (meterId === "" || meterId === null) {
 
-    await db.agregarDispositivo(
-      inputIdMeter.value,
-      inputIdUser.value,
-      inputEmail.value,
-      inputRol.value
-    );
+      btnEliminar.disable = true;
+      mensajeError.classList.remove("hideElement");
+      mensajeError.classList.add("showElement", 'estiloMensajeError');
+      contenidoConfig.classList.remove("showElement");
+      contenidoConfig.classList.add("hideElement");
+    } else {
+      datosDB = await db.consultarMedidorID(meterId);
+      loadUsers(Object.entries(datosDB.users));
+   
 
-    console.log("DONE ADDING");
-  });*/
+      $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(await db.cargarHorario(meterId));
+      btnEliminar.disable = false;
+      mensajeError.classList.add("hideElement");
+      mensajeError.classList.remove("showElement", "estiloMensajeError");
+      contenidoConfig.classList.add("showElement");
+      contenidoConfig.classList.remove("hideElement");
+      meterName.placeholder = datosDB.customName;
+      nombreActual.placeholder = datosDB.customName;
+      
+      
+    }
+    divCargando.classList.remove("showElement");
+    
+    divCargando.classList.add("hideElement");
+   
+  }
+
+  await revisarVariable();
+
+
+  $("#actualizarHorario").click(async () => {
+    let scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
+    console.log(scheduleUI);
+
+    let sch = new Schedule(true);
+
+
+    scheduleObject.toScheduleObject(scheduleUI);
+    console.log(scheduleObject);
+
+    sch.toScheduleObject(scheduleUI);
+    let ui = sch.toScheduleUI(sch.toScheduleDB());
+    console.log("--------------------------------------------");
+
+    console.log(ui);
+
+    await db.acutalizarHorario(meterId, scheduleObject);
+  });
+
 
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
@@ -113,6 +131,18 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
+
+
+  formAgregarUsuario.addEventListener('submit', async e => {
+    e.preventDefault();
+    let db = new DataBase();
+    let userId = await db.buscarUsuarioXemail(emailAgregarUsuario.value);
+    if (userId !== undefined) {
+      await db.agregarUsuarioAlista(meterId, userId, emailAgregarUsuario.value, "User");
+    }
+    $("#modalAgregarUsuario").modal("hide");
+  });
+
   window.onbeforeunload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
@@ -128,4 +158,35 @@ document.addEventListener("DOMContentLoaded", async function () {
       // do foo
     }
   };
+
+  btnGuardarFecha.addEventListener("click", async () => {
+    let db = new DataBase();
+    let optCorte;
+    let optPago;
+
+    for (let i = 0, len = fechaCorte.options.length; i < len; i++) {
+      optCorte = fechaCorte.options[i];
+      if (optCorte.selected === true) {
+        break;
+      }
+    }
+
+    for (let i = 0, len = fechaPago.options.length; i < len; i++) {
+      optPago = fechaPago.options[i];
+      if (optPago.selected === true) {
+        break;
+      }
+    }
+
+    if (optCorte.value * 1 < optPago.value * 1) {
+      await db.addDates(meterId, optCorte.value, optPago.value);
+      console.log("Dias agregados");
+    } else {
+      //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
+    }
+
+  });
+
+
+
 });

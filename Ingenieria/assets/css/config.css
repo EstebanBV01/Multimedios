@@ -48,9 +48,10 @@ body {
     justify-content: space-between;
 }
 #divCargando{
-    margin: auto;
-   
+    margin:auto;
 }
+
+
 .hideElement {
     display: none;
 }
@@ -64,14 +65,23 @@ body {
 #v-pills-nombre,#v-pills-usuarios{
     width: 90%;
 }
-#v-pills-usuarios {
 
-    display: flex;
-    flex-direction: column;
+@media (max-width:800px){
+    th{
+        font-size: 10px;
+    }
+    tbody{
+        font-size: 10px;
+    }
 }
-#v-pills-usuarios> #agregarUsuario {
+#divUsuarios {
+    flex-direction: column;
+  
+}
 
+#divUsuarios > #agregarUsuario{
     align-self: flex-end;
+
 }
 
 .estiloMensajeError {
@@ -128,10 +138,16 @@ body {
 table.schedule-table {
     border-collapse: separate;
 }
-
+#v-pills-horarios{
+    position: relative;
+    
+    
+}
 #horarioContainer {
     height: 500px;
     width: auto;
+    
+ 
 }
 
 #v-pills-home {
@@ -142,7 +158,7 @@ table.schedule-table {
 
 .schedule-rows td {
     width: 80px;
-    height: 30px;
+    height: 38px;
     margin: 3px;
     padding: 5px;
     background-color: #3cb371;
@@ -153,7 +169,7 @@ table.schedule-table {
     background-color: transparent;
     text-align: right;
     position: relative;
-    top: -12px;
+    top: -26px;
 }
 
 .schedule-rows td[data-selectedG] {

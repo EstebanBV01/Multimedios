@@ -1,6 +1,6 @@
 class DataBase {
   db = firebase.firestore();
-  constructor() { }
+  constructor() {}
 
   async obtenerDocumento(coleccion, documento) {
     var docRef = this.db.collection(coleccion).doc(documento);
@@ -152,12 +152,12 @@ class DataBase {
   async agregarMedidor(device) {
     let id;
     await this.db.collection("Devices").add({
-      activated: device.activated,
-      customName: device.customName,
-      lastValue: device.lastValue,
-      type: device.type,
-      updateConfig: device.updateConfig,
-    })
+        activated: device.activated,
+        customName: device.customName,
+        lastValue: device.lastValue,
+        type: device.type,
+        updateConfig: device.updateConfig,
+      })
       .then((docRef) => {
 
         id = docRef.id;
@@ -168,6 +168,55 @@ class DataBase {
         console.error("Error writing document: ", error);
       });
     return id;
+  }
+
+
+
+
+  async cargarHorario(idMeter) {
+    let schedule = new Schedule(true);
+    let scheduleDB = schedule.toScheduleDB();
+
+
+    for (let index = 0; index < 7; index++) {
+      let docRef = this.db.collection("Config").doc(idMeter).collection("Schedule").doc(`d${index}`);
+     await docRef.get().then((doc) => {
+        if (doc.exists) {
+        
+          scheduleDB[`d${index}`] = doc.data();
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      }).catch((error) => {
+        console.log("Error getting document:", error);
+      });
+    }
+    console.log("db es ",scheduleDB);
+    
+    return schedule.toScheduleUI(scheduleDB);
+  }
+
+  async acutalizarHorario(idMeter, schedule) {
+    let scheduleDB = schedule.toScheduleDB();
+    for (let index = 0; index < 7; index++) {
+      let configRef = this.db.collection("Config").doc(idMeter).collection("Schedule").doc(`d${index}`);
+      await configRef.set(
+          scheduleDB[`d${index}`], {
+            merge: true
+          }
+        )
+        .then(() => {
+          console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+
+          console.error("Error updating document: ", error);
+        });
+
+    }
+
+
   }
 
   async loginRegistroGoogle(session) {
@@ -194,7 +243,7 @@ class DataBase {
             docReg
               .get()
               .then((doc) => {
-                if (doc.exists) { } else {
+                if (doc.exists) {} else {
                   this.db
                     .collection("Users")
                     .doc(user.uid)
@@ -268,7 +317,7 @@ class DataBase {
     await docRef.get().then((doc) => {
       if (doc.exists) {
         device = doc.data();
-      
+
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -279,12 +328,12 @@ class DataBase {
     return device;
   }
 
-  async addDates(idMeter, cutOffDate, payDay) {
+  async addDates(idMeter, cutOffDay, payDay) {
 
     await this.db.collection("Devices").doc(idMeter).update({
-      cutOffDate: cutOffDate,
-      payDay: payDay,
-    })
+        cutOffDay: cutOffDay,
+        payDay: payDay,
+      })
       .then(() => {
         console.log("Document successfully written!");
 
@@ -294,12 +343,12 @@ class DataBase {
       });
   };
 
-  async addDateForUser(idUser, idMeter, cutOffDate, payDay) {
+  async addDateForUser(idUser, idMeter, cutOffDay, payDay) {
 
-    let path=`users.${idUser}`;
+    let path = `users.${idUser}`;
 
     let dateUser = {
-      cutOffDateUser: cutOffDate,
+      cutOffDayUser: cutOffDay,
       payDayUser: payDay,
     };
 
@@ -308,6 +357,40 @@ class DataBase {
       .doc(idMeter)
       .update({
         [path]: dateUser,
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  }
+  async buscarUsuarioXemail(email) {
+    let id;
+    await this.db.collection("Users").where("email", "==", email)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // doc.data() is never undefined for query doc snapshots
+          id = doc.id;
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+    return id;
+  }
+  async agregarUsuarioAlista(idMeter, userId, email, rol) {
+
+    let path = `users.${userId}`;
+    this.db
+      .collection("Devices")
+      .doc(idMeter)
+      .update({
+        [path]: {
+          email,
+          rol
+        }
       })
       .then(() => {
         console.log("Document successfully written!");

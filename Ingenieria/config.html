@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="assets/css/config.css">
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/sidebar.css">
-
+    <script src="https://kit.fontawesome.com/5fc4fd5412.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <title>Document</title>
@@ -89,44 +89,95 @@
                         <!--Agregar usuarios-->
                     </form>
                 </div>
-                <div class="tab-pane fade" id="v-pills-funciones" role="tabpanel"
+                <div class="tab-pane fade container" id="v-pills-funciones" role="tabpanel"
                     aria-labelledby="v-pills-funciones-tab">
-                    <div id="funcionesWaterMeter" class="container hideElement">
-
+                    <div id="funcionesWaterMeter"  >
+                        <form>
+                            <div>
+                                <label for="lbcutOffDate">Seleccione la fecha de corte:</label>
+                                <select id="slcCutOffDay" class="form-select" aria-label="Default select example">
+                                    <option selected>Dia del mes</option><option value="1">01</option>
+                                    <option value="2">02</option><option value="3">03</option>
+                                    <option value="4">04</option><option value="5">05</option>
+                                    <option value="6">06</option><option value="7">07</option>
+                                    <option value="8">08</option><option value="9">09</option>
+                                    <option value="10">10</option><option value="11">11</option>
+                                    <option value="12">12</option><option value="13">13</option>
+                                    <option value="14">14</option><option value="15">15</option>
+                                    <option value="16">16</option><option value="17">17</option>
+                                    <option value="18">18</option><option value="19">19</option>
+                                    <option value="20">20</option><option value="21">21</option>
+                                    <option value="22">22</option><option value="23">23</option>
+                                    <option value="24">24</option><option value="25">25</option>
+                                    <option value="26">26</option><option value="27">27</option>
+                                    <option value="28">28</option><option value="29">29</option>
+                                    <option value="30">30</option><option value="31">31</option>
+                                  </select>
+                            </div>
+                        </form>
+                        <form>
+                            <div>
+                                <label for="lbpayday">Seleccione la fecha de pago:</label>
+                                <select id="slcPayDay" class="form-select" aria-label="Default select example">
+                                    <option selected>Dia del mes</option><option value="1">01</option>
+                                    <option value="2">02</option><option value="3">03</option>
+                                    <option value="4">04</option><option value="5">05</option>
+                                    <option value="6">06</option><option value="7">07</option>
+                                    <option value="8">08</option><option value="9">09</option>
+                                    <option value="10">10</option><option value="11">11</option>
+                                    <option value="12">12</option><option value="13">13</option>
+                                    <option value="14">14</option><option value="15">15</option>
+                                    <option value="16">16</option><option value="17">17</option>
+                                    <option value="18">18</option><option value="19">19</option>
+                                    <option value="20">20</option><option value="21">21</option>
+                                    <option value="22">22</option><option value="23">23</option>
+                                    <option value="24">24</option><option value="25">25</option>
+                                    <option value="26">26</option><option value="27">27</option>
+                                    <option value="28">28</option><option value="29">29</option>
+                                    <option value="30">30</option><option value="31">31</option>
+                                  </select>
+                            </div>
+                        </form>
+                        <button type="button" id= "btnguardarFechas" class="btn btn-primary">Guardar</button>
                     </div>
-                    <div id="funcionesSoundMeterS" class="container hideElement">
-
+                    <div id="funcionesSoundMeter" class="container ">
+                        <!--METER AQUI LAS FUNCIONES DEL MEDIDOR DE SONIDO Y NO TOCAR NADA MAS ANTES DE PREGUNTAR-->
                     </div>
                 </div>
 
 
                 <!--Agregar usuarios-->
-                <div class="container mx-auto tab-pane fade" id="v-pills-usuarios" role="tabpanel"
+                <div class="mx-auto tab-pane fade " id="v-pills-usuarios" role="tabpanel"
                     aria-labelledby="v-pills-usuarios-tab">
+                    <div id="divUsuarios" class="container d-flex">
+                        <table id="tablaUsuarios" class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Email</th>
+                                    <th scope="col" class="text-center">Rol</th>
+                                    <th scope="col" class="text-end">Configurar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="cuerpoTablaUsuarios">
 
-                    <table id="tablaUsuarios" class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Email</th>
-                                <th scope="col" class="text-center">Rol</th>
-                                <th scope="col" class="text-end">Configurar</th>
-                            </tr>
-                        </thead>
-                        <tbody id="cuerpoTablaUsuarios">
-                           
-                            
-                        </tbody>
-                    </table>
-                    <button type="button" id="agregarUsuario" class="btn btn-primary"><i class="bi bi-person-plus"></i> Agregar</button>
+
+                            </tbody>
+                        </table>
+                        <button type="button" id="agregarUsuario" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalAgregarUsuario"><i class="bi bi-person-plus"></i> Agregar</button>
+                    </div>
                 </div>
-                <div class="tab-pane fade" id="v-pills-horarios" role="tabpanel" aria-labelledby="v-pills-horarios-tab">
-
-                    <div id="horarioContainer" class="mx-auto container-sm overflow-auto">
-                        <div id="weekly-schedule" class="mx-auto verflow-auto"> </div>
+                
+                <div class="tab-pane fade container mx-auto showElement" id="v-pills-horarios" role="tabpanel" aria-labelledby="v-pills-horarios-tab">
+               
+                    <div id="horarioContainer" class="mx-auto container-sm overflow-auto ">
+                     
+                        <div id="weekly-schedule" class="mx-auto verflow-auto "> </div>
+                        <div  class=" d-flex justify-content-end">
+                            <button id="actualizarHorario" type="button" class="btn btn-primary">Actualizar</button>
+                        </div>
                     </div>
-                    <div id="seccion3" class=" d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary">Actualizar</button>
-                    </div>
+                  
                 </div>
             </div>
         </div>
@@ -134,7 +185,7 @@
         <div id="footerConfiguracion">
             <div id="footerContenido">
                 <button type="submit" class="btn btn-outline-success"><i style="font-size: 2rem"
-                        class="bi bi-cloud-arrow-up"></i></button>
+                        class="far fa-save"></i></button>
                 <button id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem"
                         class="bi bi-trash"></i></button>
             </div>
@@ -162,7 +213,31 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalAgregarUsuario" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Agregar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formAgregarUsuario">
+                        <div class="mb-3">
+                            <label for="recipient-name" class="col-form-label">email:</label>
+                            <input type="email" class="form-control" id="emailAgregarUsuario" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="btnAgregarUsuarioModal"
+                                class="btn btn-primary">AgregarUsuario</button>
+                        </div>
+                    </form>
+                </div>
 
+            </div>
+        </div>
+    </div>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.7/firebase-firestore.js"></script>
@@ -173,6 +248,8 @@
     <script src="assets/references/index.js"></script>
     <script src="assets/classes/Device.js"></script>
     <script src="assets/classes/Database.js"></script>
+    <script src="assets/classes/Schedule.js"></script>
+    <script src="assets/classes/Day.js"></script>
     <script src="assets/JS/config.js"></script>
 
 </body>
