@@ -1,0 +1,9 @@
+Cambiar el logo en index.html
+Feedback al intentar registrarse
+Implementar pantalla de funciones (configuración del dispositivo)
+Hacer que las configuraciones se guarden
+Hacer funcionar los links del sidebar
+Implementar el cierre de sesión (logout), parece que solo no funciona en la página de configuración
+(Opcional) Hacer que funcione el logueo/registro con Google
+(Opcional) Colocar iconografía a algunos elementos de la UI
+Testear las validaciones
