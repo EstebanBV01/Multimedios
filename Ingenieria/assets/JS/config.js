@@ -15,8 +15,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaPago = document.querySelector("#slcPayDay");
   let db = new DataBase();
   let scheduleObject = new Schedule(true);
-
-
+  const btnSalir = document.querySelector('#salir');
 
   meterId = sessionStorage.getItem("id");
 
@@ -186,7 +185,16 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
   });
+  btnSalir.addEventListener('click', e => {
+    firebase.auth().signOut().then(() => {
+        // Sign-out successful.
+        console.log("salio de la sesion");
+        $(location).attr('href', "index.html");
+    }).catch((error) => {
+        // An error happened.
+    });
 
+})
 
 
 });
