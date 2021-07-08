@@ -28,7 +28,7 @@
             document.getElementById("mySidenav").style.width = "250px";
         }
 
-        function closeNav() {s
+        function closeNav() {
             document.getElementById("mySidenav").style.width = "0";
         }
     </script>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="tab-pane fade container" id="v-pills-funciones" role="tabpanel"
                     aria-labelledby="v-pills-funciones-tab">
-                    <div id="funcionesWaterMeter">
+                    <div id="funcionesWaterMeter" class="hideElement">
                         <form>
                             <div>
                                 <label for="lbcutOffDate">Seleccione la fecha de corte:</label>
@@ -131,8 +131,35 @@
                         </div>
 
                     </div>
-                    <div id="funcionesSoundMeter" class="container ">
-                        <!--METER AQUI LAS FUNCIONES DEL MEDIDOR DE SONIDO Y NO TOCAR NADA MAS ANTES DE PREGUNTAR-->
+                    <div id="funcionesSoundMeter" class="container">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault">Alarma</label>
+                        </div>
+                        <h5 for="customRange3" class="form-label">Volumen</h5>
+                        <div class="d-flex">
+                            <i class="bi bi-volume-mute-fill" style="font-size: 2rem"></i>
+                            <input type="range" class="form-range" min="0" max="100" step="1" id="customRange3">
+                            <i class="bi bi-volume-off-fill" style="font-size: 2rem"></i>
+                        </div>
+                        <div class="form-group pt-2">
+                            <h5 for="cellphone">Tiempo entre alertas</h5>
+                            <input
+                              type="number"
+                              class="form-control mb-2"
+                              name="value"
+                            ></input>
+                        </div>
+                        <div class="border-top">
+                            <div class="form-group">
+                                <form action="" class="d-flex flex-column">
+                                        <h5 for="notificationMessage">Mensaje de notificacion</h5>
+                                        <textarea class="form-control" id="notificationMessage" rows="2"></textarea>
+                                        <br>
+                                    <button type="submit" class="btn btn-primary col-2 offset-md-2" style="align-self: flex-end">Guardar</button>
+                                </form>    
+                            </div>
+                        </div>
                     </div>
                 </div>
 
