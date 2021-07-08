@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     firebase.auth().onAuthStateChanged(async (user) => {
         if (user) {
             console.log(user);
-            user.displayName ? nombreUsuario.innerText = "Bienvenid@: " + user.displayName : nombreUsuario.innerText = "Bienvenid@: " + user.email;
+            user.displayName ? nombreUsuario.innerText = user.displayName : nombreUsuario.innerText =  user.email;
            await loadData2();
            divCargando.classList.remove("showElement");
            divCargando.classList.add("hideElement");

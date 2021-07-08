@@ -39,3 +39,10 @@
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
   }
+  #nombreUsuario{
+    text-align: center;
+    font-weight: bold;
+  }
+  #dispositivos{
+    margin-right: 800px;
+}  
