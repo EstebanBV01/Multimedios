@@ -84,7 +84,7 @@
                         </div>
 
 
-                        <!--Agregar usuarios-->
+                        <!--Agregar usuarios (qué hace esto aquí???)-->
                     </form>
                 </div>
                 <div class="tab-pane fade container" id="v-pills-funciones" role="tabpanel"
@@ -131,33 +131,63 @@
                         </div>
 
                     </div>
+
+                    <!-- Funciones -->
                     <div id="funcionesSoundMeter" class="container">
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Alarma</label>
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="alarm-sw">
+                                    <label class="form-check-label" for="alarm-sw">Alarma</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="test-sw">
+                                    <label class="form-check-label" for="test-sw">Modo prueba <i
+                                        class="bi bi-info-circle" data-bs-toggle="tooltip"
+              data-bs-placement="bottom" title="Permite probar la sensibilidad configurada sin disparar alertas.
+Desactívalo cuando estés listo o de lo contrario no se enviará la notificación aunque la alarma esté activa."></i></label>
+                                </div>
+                            </div>
                         </div>
-                        <h5 for="customRange3" class="form-label">Volumen</h5>
+                        <br>
+                        <h5 for="sensitivity" class="form-label">Sensibilidad</h5>
                         <div class="d-flex">
-                            <i class="bi bi-volume-mute-fill" style="font-size: 2rem"></i>
-                            <input type="range" class="form-range" min="0" max="100" step="1" id="customRange3">
-                            <i class="bi bi-volume-off-fill" style="font-size: 2rem"></i>
+                            <i class="bi bi-volume-down" style="font-size: 2rem"></i>
+                            <input type="range" class="form-range" min="0" max="100" step="1" id="sensitivity">
+                            <i class="bi bi-volume-up" style="font-size: 2rem"></i>
                         </div>
+                        <br>
                         <div class="form-group pt-2">
-                            <h5 for="cellphone">Tiempo entre alertas</h5>
-                            <input
-                              type="number"
-                              class="form-control mb-2"
-                              name="value"
-                            ></input>
+                            <h5 for="cooldown">Tiempo entre alertas (en minutos)</h5>
+                            <input type="number" class="form-control mb-2" id="cooldown" min="1" max="30"
+                                value="5"></input>
                         </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <h5 for="standby-color">Color de la luz en reposo</h5>
+                                <input type="color" id="standby-color" value="#0000CD" style="width: 50%;">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col">
+                                <h5 for="alert-color">Color de la luz en alarma</h5>
+                                <input type="color" id="alert-color" value="#DC143C" style="width: 50%;">
+                            </div>
+                        </div>
+                        <br>
                         <div class="border-top">
                             <div class="form-group">
-                                <form action="" class="d-flex flex-column">
-                                        <h5 for="notificationMessage">Mensaje de notificacion</h5>
-                                        <textarea class="form-control" id="notificationMessage" rows="2"></textarea>
-                                        <br>
-                                    <button type="submit" class="btn btn-primary col-2 offset-md-2" style="align-self: flex-end">Guardar</button>
-                                </form>    
+                                <form action="#" class="d-flex flex-column">
+                                    <h5 for="notificationMessage">Mensaje de notificación</h5>
+                                    <textarea class="form-control" id="notificationMessage" rows="2"></textarea>
+                                    <br>
+                                    <button type="button" class="btn btn-primary col-2 offset-md-2"
+                                        style="align-self: flex-end" id="funcionesBtn">Guardar</button>
+                                </form>
                             </div>
                         </div>
                     </div>

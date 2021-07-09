@@ -1,6 +1,13 @@
 class DataBase {
   db = firebase.firestore();
-  constructor() {}
+  constructor() { }
+  
+  // Esta función sirve para setear la "bandera" que hará que el dispositivo lea la configuración para actualizársela
+  async flagUpdate(deviceID) {
+    const docRef = this.db.collection("Devices").doc(deviceID);
+
+    return await docRef.update({ updateConfig: true });
+  }
 
   async obtenerDocumento(coleccion, documento) {
     var docRef = this.db.collection(coleccion).doc(documento);
@@ -21,6 +28,23 @@ class DataBase {
         console.log("Error getting document:", error);
       });
     return result;
+  }
+
+  async escribirDocumento(coleccion, documento, datos) {
+    const docRef = this.db.collection(coleccion).doc(documento);
+    let successful = false;
+    let e;
+
+    await docRef.set(datos).then(() => {
+      console.log("Document successfully overwritten!");
+      successful = true;
+    }).catch((error) => {
+      console.log(error);
+      e = error;
+    });
+
+    if (successful) return Promise.resolve(null);
+    else return Promise.reject(e);
   }
 
   async loginEmailPassword(email, password, session) {
@@ -154,12 +178,12 @@ class DataBase {
   async agregarMedidor(device) {
     let id;
     await this.db.collection("Devices").add({
-        activated: device.activated,
-        customName: device.customName,
-        lastValue: device.lastValue,
-        type: device.type,
-        updateConfig: device.updateConfig,
-      })
+      activated: device.activated,
+      customName: device.customName,
+      lastValue: device.lastValue,
+      type: device.type,
+      updateConfig: device.updateConfig,
+    })
       .then((docRef) => {
 
         id = docRef.id;
@@ -179,9 +203,9 @@ class DataBase {
 
     for (let index = 0; index < 7; index++) {
       let docRef = this.db.collection("Config").doc(idMeter).collection("Schedule").doc(`d${index}`);
-     await docRef.get().then((doc) => {
+      await docRef.get().then((doc) => {
         if (doc.exists) {
-        
+
           scheduleDB[`d${index}`] = doc.data();
         } else {
           // doc.data() will be undefined in this case
@@ -191,8 +215,8 @@ class DataBase {
         console.log("Error getting document:", error);
       });
     }
-    console.log("db es ",scheduleDB);
-    
+    console.log("db es ", scheduleDB);
+
     return schedule.toScheduleUI(scheduleDB);
   }
 
@@ -201,10 +225,10 @@ class DataBase {
     for (let index = 0; index < 7; index++) {
       let configRef = this.db.collection("Config").doc(idMeter).collection("Schedule").doc(`d${index}`);
       await configRef.set(
-          scheduleDB[`d${index}`], {
-            merge: true
-          }
-        )
+        scheduleDB[`d${index}`], {
+        merge: true
+      }
+      )
         .then(() => {
           console.log("Document successfully updated!");
         })
@@ -239,7 +263,7 @@ class DataBase {
             docReg
               .get()
               .then((doc) => {
-                if (doc.exists) {} else {
+                if (doc.exists) { } else {
                   this.db
                     .collection("Users")
                     .doc(user.uid)
@@ -328,9 +352,9 @@ class DataBase {
   async addDates(idMeter, cutOffDay, payDay) {
 
     await this.db.collection("Devices").doc(idMeter).update({
-        cutOffDay: cutOffDay,
-        payDay: payDay,
-      })
+      cutOffDay: cutOffDay,
+      payDay: payDay,
+    })
       .then(() => {
         console.log("Document successfully written!");
 

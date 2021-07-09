@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   }
 
+  // A partir de aquí no se usa CREO
   const cutDays = (days) => {
     for (let index = 1; index < days; index++) {
       const day = index;
@@ -82,6 +83,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#slcPayDayUser").append(newRow);
     }
   }
+  // Hasta aquí no se usa CREO
+
 
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
@@ -152,6 +155,57 @@ document.addEventListener("DOMContentLoaded", async function () {
     await db.acutalizarHorario(meterId, scheduleObject);
   });
 
+  $("#funcionesBtn").click(async () => {
+    const colorEspera = htmlRGBToValues(document.getElementById("standby-color").value);
+    const colorEnAlerta = htmlRGBToValues(document.getElementById("alert-color").value);
+
+    // Estructura del documentos de la colección "Config", nombre del documento es la variable meterId
+    const datos = {
+      colorEnEspera: {
+        Red: colorEspera[0],
+        Green: colorEspera[1],
+        Blue: colorEspera[2]
+      },
+
+      colorAlerta: {
+        Red: colorEnAlerta[0],
+        Green: colorEnAlerta[1],
+        Blue: colorEnAlerta[2]
+      },
+
+      enModoPrueba: document.getElementById("test-sw").checked,
+      umbralSonido: parseInt(document.getElementById("sensitivity").value),
+      tiempoDeEspera:  parseInt(document.getElementById("cooldown").value),
+      mensajeNotificacion: document.getElementById("notificationMessage").value
+    };
+
+    const p = await db.escribirDocumento("Config", meterId, datos).then((val) => {
+      alert("Configuración guardada con éxito");
+    }).catch((val) => {
+      alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
+    });
+
+    console.log(db.flagUpdate(meterId));
+  });
+
+  function htmlRGBToValues(htmlRGB) {
+    // htmlRGB is expected to be an string of RGB values in HTML format (aka "#RRGGBB", every value in two hexadecimal digits)
+    return [parseInt(htmlRGB.substr(1,2), 16), parseInt(htmlRGB.substr(3,2), 16), parseInt(htmlRGB.substr(5,2), 16)];
+  }
+
+  // red, green and blue are integers between 0 and 255
+  function valuesTohtmlRGB(red, green, blue) {
+    // Faster than % 256
+    red &= 255;
+    green &= 255;
+    blue &= 255;
+
+    return "#" + intToHex(red) + intToHex(green) + intToHex(blue);
+  }
+
+  function intToHex(val) {
+    return ((val < 16 ? "0" : "") + val.toString(16)).toUpperCase();
+  }
 
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
