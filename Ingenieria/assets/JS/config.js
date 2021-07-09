@@ -20,9 +20,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaCorteUsuario = document.querySelector("#slcCutOffDayUser");
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
 
-  
+
   let combo = document.getElementById("rolSelect");
-  
+
   meterId = sessionStorage.getItem("id");
 
   const loadUsers = (users) => {
@@ -104,6 +104,54 @@ document.addEventListener("DOMContentLoaded", async function () {
     stringDays: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"],
   });
 
+  const cargarConfig = async () => {
+    /* Estructura de documentos de la colección "Config"
+    const datos = {
+      colorEnEspera: {
+        Red: number,
+        Green: number,
+        Blue: number
+      },
+
+      colorAlerta: {
+        Red: number,
+        Green: number,
+        Blue: number
+      },
+
+      enModoPrueba: boolean,
+      umbralSonido: number,
+      tiempoDeEspera: number,
+      mensajeNotificacion: string
+    }; */
+
+    let datos = null;
+    await db.obtenerDocumento("Config", meterId).then((d) => {
+      datos = d;
+
+    }).catch((error) => {
+      if (error === null) alert("¡Dispositivo nuevo detectado!\n"
+      + "Guarde sus configuraciones para que no vuelva a aparecer este mensaje con este dispositivo.");
+      else alert("ERROR AL CARGAR CONFIGURACIÓN.\nPor favor recargue la página asegurando una buena conexión a internet.");
+      return Promise.reject(error);
+    });
+
+    const colorEspera = datos.colorEnEspera;
+    const colorEnAlerta = datos.colorAlerta;
+    document.getElementById("standby-color").value = valuesTohtmlRGB(colorEspera.Red, colorEspera.Green, colorEspera.Blue);
+    document.getElementById("alert-color").value = valuesTohtmlRGB(colorEnAlerta.Red, colorEnAlerta.Green, colorEnAlerta.Blue);
+    document.getElementById("test-sw").checked = datos.enModoPrueba;
+    document.getElementById("sensitivity").value = datos.umbralSonido;
+    document.getElementById("cooldown").value = datos.tiempoDeEspera;
+    document.getElementById("notificationMessage").value = datos.mensajeNotificacion;
+
+    console.log(document.getElementById("funcionesBtn"));
+    return Promise.resolve(null);
+  }
+
+  
+
+  // Aquí es donde se carga todo verdad?
   const revisarVariable = async () => {
 
     if (meterId === "" || meterId === null) {
@@ -120,7 +168,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       payDays(32);
       cutDaysUser(32);
       payDaysUser(32);
-     
+
       $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(await db.cargarHorario(meterId));
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
@@ -133,6 +181,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     divCargando.classList.remove("showElement");
     divCargando.classList.add("hideElement");
+
+    await cargarConfig();
   }
 
   await revisarVariable();
@@ -156,10 +206,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
   $("#funcionesBtn").click(async () => {
+    console.log("Guardando");
     const colorEspera = htmlRGBToValues(document.getElementById("standby-color").value);
     const colorEnAlerta = htmlRGBToValues(document.getElementById("alert-color").value);
 
-    // Estructura del documentos de la colección "Config", nombre del documento es la variable meterId
     const datos = {
       colorEnEspera: {
         Red: colorEspera[0],
@@ -175,11 +225,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       enModoPrueba: document.getElementById("test-sw").checked,
       umbralSonido: parseInt(document.getElementById("sensitivity").value),
-      tiempoDeEspera:  parseInt(document.getElementById("cooldown").value),
+      tiempoDeEspera: parseInt(document.getElementById("cooldown").value),
       mensajeNotificacion: document.getElementById("notificationMessage").value
     };
 
-    const p = await db.escribirDocumento("Config", meterId, datos).then((val) => {
+    await db.escribirDocumento("Config", meterId, datos).then((val) => {
       alert("Configuración guardada con éxito");
     }).catch((val) => {
       alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
@@ -190,7 +240,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function htmlRGBToValues(htmlRGB) {
     // htmlRGB is expected to be an string of RGB values in HTML format (aka "#RRGGBB", every value in two hexadecimal digits)
-    return [parseInt(htmlRGB.substr(1,2), 16), parseInt(htmlRGB.substr(3,2), 16), parseInt(htmlRGB.substr(5,2), 16)];
+    return [parseInt(htmlRGB.substr(1, 2), 16), parseInt(htmlRGB.substr(3, 2), 16), parseInt(htmlRGB.substr(5, 2), 16)];
   }
 
   // red, green and blue are integers between 0 and 255
@@ -222,7 +272,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
-  
+
   window.onbeforeunload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
@@ -241,13 +291,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   btnSalir.addEventListener('click', e => {
     firebase.auth().signOut().then(() => {
-        // Sign-out successful.
-        console.log("salio de la sesion");
-        $(location).attr('href', "index.html");
+      // Sign-out successful.
+      console.log("salio de la sesion");
+      $(location).attr('href', "index.html");
     }).catch((error) => {
-        // An error happened.
+      // An error happened.
     });
-})
+  })
 
   btnGuardarFecha.addEventListener("click", async () => {
     let db = new DataBase();
@@ -306,13 +356,13 @@ document.addEventListener("DOMContentLoaded", async function () {
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
     let selected = combo.options[combo.selectedIndex].text;
-    let rol= buscarElRol(Object.entries(datosDB.users));
-    let idUsuarioaAgregar=await db.buscarUsuarioXemail(emailAgregarUsuario.value);
-    if(rol==="Admin"&& idUsuarioaAgregar!=undefined){
-      console.log(rol+" "+emailAgregarUsuario.value+" "+selected);
-      await db.agregarUsuarioAlista(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
-      await db.activarDispositivoParaUserAdmin(meterId, idUsuarioaAgregar,emailAgregarUsuario.value, selected);
-    }else{
+    let rol = buscarElRol(Object.entries(datosDB.users));
+    let idUsuarioaAgregar = await db.buscarUsuarioXemail(emailAgregarUsuario.value);
+    if (rol === "Admin" && idUsuarioaAgregar != undefined) {
+      console.log(rol + " " + emailAgregarUsuario.value + " " + selected);
+      await db.agregarUsuarioAlista(meterId, idUsuarioaAgregar, emailAgregarUsuario.value, selected);
+      await db.activarDispositivoParaUserAdmin(meterId, idUsuarioaAgregar, emailAgregarUsuario.value, selected);
+    } else {
       alert("usted no tiene permisos de administrador o el usuario no existe");
     }
 
@@ -326,7 +376,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       arr = array[i]
       for (let j = 0; j < arr.length; j++) {
         let { email, rol } = arr[j];
-        console.log(email+" "+user.email);
+        console.log(email + " " + user.email);
         if (email == user.email) {
           roll = rol;
         }

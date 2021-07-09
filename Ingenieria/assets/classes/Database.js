@@ -17,17 +17,20 @@ class DataBase {
       .get()
       .then((doc) => {
         if (doc.exists) {
-          console.log("data es ", doc.data());
+          const d = doc.data();
+          console.log("data es ", d);
 
-          result = doc.data();
+          result = d;
         } else {
           console.log("No such document!");
+          return Promise.reject(null); // Antes no estaba
         }
       })
       .catch((error) => {
         console.log("Error getting document:", error);
+        return Promise.reject(error); // Antes no estaba
       });
-    return result;
+      return result;
   }
 
   async escribirDocumento(coleccion, documento, datos) {
@@ -58,7 +61,6 @@ class DataBase {
         // if a user forgets to sign out.
         // ...
         // New sign-in will be persisted with session persistence.
-
         return firebase
           .auth()
           .signInWithEmailAndPassword(email, password)
