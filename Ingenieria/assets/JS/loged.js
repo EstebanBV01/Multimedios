@@ -48,11 +48,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     btnRandomMedidor.addEventListener("click", async () => {
         let db = new DataBase();
         let types = ["WaterMeter","SoundMeter"];
-        shuffleArray(types);
+        //shuffleArray(types); // WTF is this???
        console.log(types[0]);
        
         
-        let device = new Device(generateName(), "", false, 0, types[0], false);
+        let device = new Device(generateName(), "", false, 0, types[1], false);
         let id = await db.agregarMedidor(device);
         
 
