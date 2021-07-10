@@ -1,6 +1,12 @@
 class DataBase {
   db = firebase.firestore();
   constructor() { }
+
+  async actualizarEstadoAlarma(deviceID, valor) {
+    const docRef = this.db.collection("Devices").doc(deviceID);
+
+    return await docRef.update({ activated: valor });
+  }
   
   // Esta función sirve para setear la "bandera" que hará que el dispositivo lea la configuración para actualizársela
   async flagUpdate(deviceID) {

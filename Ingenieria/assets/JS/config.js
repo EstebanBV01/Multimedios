@@ -127,7 +127,22 @@ document.addEventListener("DOMContentLoaded", async function () {
       tiempoDeEspera: number,
       mensajeNotificacion: string
     }; */
+
     let datos = null;
+    await db.obtenerDocumento("Devices", meterId).then((d) => {
+      datos = d;
+
+    }).catch((error) => {
+      if (error === null) alert("DISPOSITIVO NO ENCONTRADO\n"
+      + "Regrese a la lista de dispositivos y seleccione uno.");
+      else alert("ERROR AL CARGAR CONFIGURACIÓN.\nPor favor recargue la página asegurando una buena conexión a internet.");
+      return Promise.reject(error);
+    });
+
+
+    document.getElementById("alarm-sw").checked = datos.activated;
+
+
     await db.obtenerDocumento("Config", meterId).then((d) => {
       datos = d;
 
@@ -239,8 +254,22 @@ document.addEventListener("DOMContentLoaded", async function () {
       tiempoDeEspera: parseInt(document.getElementById("cooldown").value),
       mensajeNotificacion: document.getElementById("notificationMessage").value
     };
-
     let success = false;
+
+    await db.actualizarEstadoAlarma(meterId, document.getElementById("alarm-sw").checked)
+    .then((val) => {
+      success = true;
+      
+    }).catch((val) => {
+      
+    });
+
+    if (!success) {
+      alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
+      return Promise.reject(null);
+    }
+
+    success = false;
     await db.escribirDocumento("Config", meterId, datos).then((val) => {
       success = true;
       
