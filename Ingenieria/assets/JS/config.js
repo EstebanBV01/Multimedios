@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-
+  //console.log("Sección", 1);
   let btnEliminar = document.querySelector("#btnEliminarMedidor");
   let mensajeError = document.querySelector("#mensajeError");
   let contenidoConfig = document.querySelector("#v-pills-tabContent");
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   meterId = sessionStorage.getItem("id");
 
+  //console.log("Sección", 2);
   const loadUsers = (users) => {
     console.log(users);
 
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#cuerpoTablaUsuarios").append(newRow);
     }
   };
+  //console.log("Sección", 3);
 
   // A partir de aquí no se usa CREO
   const cutDays = (days) => {
@@ -84,7 +86,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   };
   // Hasta aquí no se usa CREO
 
-  // Met
+  //console.log("Sección", 4);
+
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
 
@@ -103,6 +106,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     stringDays: ["Dom", "Lun", "Mar", "Mier", "Jue", "Vie", "Sab"],
   });
 
+  //console.log("Sección", 5);
   const cargarConfig = async () => {
     /* Estructura de documentos de la colección "Config"
     const datos = {
@@ -146,6 +150,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     return Promise.resolve(null);
   };
 
+  //console.log("Sección", 6);
+
   
 
   // Aquí es donde se carga todo verdad?
@@ -166,7 +172,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       cutDaysUser(32);
       payDaysUser(32);
 
-      $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(await db.cargarHorario(meterId));
+      let horario = null;
+      await db.cargarHorario(meterId).then((h) => {
+        horario = h;
+      }).catch((e) => {
+        console.log("No hay horarios guardados", e);
+      });
+
+      if (horario !== null) $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize();
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
       mensajeError.classList.remove("showElement", "estiloMensajeError");
@@ -179,12 +192,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     divCargando.classList.remove("showElement");
     divCargando.classList.add("hideElement");
 
-    await cargarConfig();
+    await cargarConfig().catch((e) => {
+      console.log("No hay configuración guardada", e);
+    });
   };
-
+  //console.log("Sección", 7);
   await revisarVariable();
+  //console.log("Sección", 8);
 
-  // Met
   $("#actualizarHorario").click(async () => {
     let scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
     console.log(scheduleUI);
@@ -202,12 +217,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     await db.acutalizarHorario(meterId, scheduleObject);
   });
-  alert("Seteando el evento");
+  //console.log("Sección", 9);
   $("#funcionesBtn").click(function(e) {
     console.log("Evento de guardado disparado");
     guardarConfig();
   });
-  alert("Ya lo pasé");
+  //console.log("Sección", 10);
 
   const guardarConfig = async () => {
     const colorEspera = htmlRGBToValues(document.getElementById("standby-color").value);
@@ -250,14 +265,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     return Promise.resolve(null);
   };
-
-  // Met
+  //console.log("Sección", 11);
   function htmlRGBToValues(htmlRGB) {
     // htmlRGB is expected to be an string of RGB values in HTML format (aka "#RRGGBB", every value in two hexadecimal digits)
     return [parseInt(htmlRGB.substr(1, 2), 16), parseInt(htmlRGB.substr(3, 2), 16), parseInt(htmlRGB.substr(5, 2), 16)];
   }
-
-  // Met
+  //console.log("Sección", 12);
   // red, green and blue are integers between 0 and 255
   function valuesTohtmlRGB(red, green, blue) {
     // Faster than % 256
@@ -267,18 +280,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     return "#" + intToHex(red) + intToHex(green) + intToHex(blue);
   }
+  //console.log("Sección", 13);
 
-  // Met
   function intToHex(val) {
     return ((val < 16 ? "0" : "") + val.toString(16)).toUpperCase();
   }
+  //console.log("Sección", 14);
 
-  // Met
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
   });
+  //console.log("Sección", 15);
 
-  // Met
   btnEliminarModal.addEventListener("click", async () => {
     let db = new DataBase();
     if (meterName.value === datosDB.customName) {
@@ -290,8 +303,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#modalEliminarMedidor").modal("hide");
     }
   });
-
-  // Met
+  //console.log("Sección", 16);
   window.onbeforeunload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
@@ -299,7 +311,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       // do foo
     }
   };
-
+  //console.log("Sección", 17);
   window.onload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
@@ -307,7 +319,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       // do foo
     }
   };
-
+  //console.log("Sección", 18);
   btnSalir.addEventListener('click', e => {
     firebase.auth().signOut().then(() => {
       // Sign-out successful.
@@ -317,7 +329,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       // An error happened.
     });
   })
-
+  //console.log("Sección", 19);
   btnGuardarFecha.addEventListener("click", async () => {
     let db = new DataBase();
     let optCorte;
@@ -344,7 +356,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }
   });
-
+  //console.log("Sección", 20);
   btnGuardarFechaUsuario.addEventListener("click", async () => {
     let db = new DataBase();
     let optCorteUsuario;
@@ -371,7 +383,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }
   });
-  
+
+
+  //console.log("Sección", 21);
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
     let selected = combo.options[combo.selectedIndex].text;
@@ -388,6 +402,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     $("#modalAgregarUsuario").modal("hide");
   });
 
+  //console.log("Sección", 22);
+
   const buscarElRol = array => {
     let arr = [];
     let roll;
@@ -403,5 +419,5 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
     return roll;
   }
-
+  //console.log("Sección", 23);
 });
