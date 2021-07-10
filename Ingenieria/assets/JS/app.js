@@ -20,30 +20,46 @@ document.addEventListener('DOMContentLoaded', () => {
 btnConfirm_loginRegist.addEventListener('click', async(event) => {
     event.preventDefault();
     let db = new DataBase();
+    let user;
     if (canLogin) {
-        try{
-            let user = await db.loginEmailPassword(inputEmail.value, inputPassword.value, "SESSION");
-            let resultado = await db.obtenerDocumento('Users', user.uid);
-            console.log(resultado.rol);
-            if (resultado.rol==='admin') $(location).attr('href', "admin.html");
-            else if(resultado.rol==null){
-                $(location).attr('href', "loged.html");
-            }
-        }catch(e) {
-        $('#modalContent').text("Las credenciales son incorrectas o el usuario no se encuentra registrado");
-        $('#modalMessages').modal('show');
-        $('#signUpModal').modal('hide');
-        }
-    } else if(inputPassword.value===inputConfirmPassword.value){
-        db.registroEmailPassword(inputEmail.value, inputPassword.value);
-        $('#signUpModal').modal('hide');
-    }else{
-        $('#modalContent').text("Las contraseñas no coinciden o el email es invalido");
-        $('#modalMessages').modal('show');
+      console.log('--------------------');
+      try {
+        user = await db.loginEmailPassword(
+          inputEmail.value,
+          inputPassword.value,
+          "SESSION"
+        );
+  
+        console.log(user);
+        $(location).attr("href", "loged.html");
+      } catch (e) {
+        $("#modalContent").text(
+          "Las credenciales son incorrectas o el usuario no se encuentra registrado"
+        );
+        $("#modalMessages").modal("show");
+        $("#signUpModal").modal("hide");
+      }
+    } else if (inputPassword.value === inputConfirmPassword.value) {
+      let result = await db.registroEmailPassword(
+        inputEmail.value,
+        inputPassword.value
+      );
+      console.log("registro", result);
+      user=result;
+      console.log(user);
+      $("#signUpModal").modal("hide");
+    } else {
+      $("#modalContent").text(
+        "Las contraseñas no coinciden o el email es invalido"
+      );
+      $("#modalMessages").modal("show");
     }
-    let user = await firebase.auth().currentUser;
-    console.log(user);
-})
+  
+    if (user) {
+      $("#signUpModal").modal("hide");
+      $(location).attr("href", "loged.html");
+    }
+});
 
 const btnClick = (btnOn, btnOff) => {
     btnOn.classList.add("btnOnClick");
