@@ -86,12 +86,8 @@ document.addEventListener("DOMContentLoaded", async function () {
         let imgCard = document.createElement("img");
         imgCard.classList.add("card-img-top");
         imgCard.alt = "Sensor de ruido";
-        if(type ==="WaterMeter"){
-            imgCard.src = "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Pok%C3%A9mon_Water_Type_Icon.svg/1200px-Pok%C3%A9mon_Water_Type_Icon.svg.png";
-            
-        }else{
-            imgCard.src = "https://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/sound-icon.png";
-        }
+        imgCard.src = "https://icons.iconarchive.com/icons/custom-icon-design/mono-general-4/512/sound-icon.png";
+        
        
         divCard.appendChild(imgCard);
         let divBody = document.createElement("div");

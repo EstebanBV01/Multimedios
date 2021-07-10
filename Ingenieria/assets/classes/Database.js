@@ -250,6 +250,18 @@ class DataBase {
     }
   }
 
+  async modificarMedidor(newName, idMeter){
+    let path = `devices.${idMeter}.customName`;
+    let device ={customName: newName};
+    let user = await firebase.auth().currentUser;
+    var batch =  this.db.batch();
+    var sfRef = this.db.collection("Devices").doc(idMeter);
+    batch.update(sfRef, device);
+    var userRef = this.db.collection("Users").doc(user.uid);
+    batch.update(userRef, {[path]: newName});
+    batch.commit().then(() => {
+});
+  }
   async loginRegistroGoogle(session) {
     let provider = new firebase.auth.GoogleAuthProvider();
     let user = null;

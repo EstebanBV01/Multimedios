@@ -21,6 +21,9 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
   let user = firebase.auth().currentUser;
   let combo = document.getElementById("rolSelect");
+  let btnModificar = document.querySelector('#btnguardarModificar');
+  let newName = document.querySelector("#nuevoNombreInput");
+
 
   meterId = sessionStorage.getItem("id");
 
@@ -225,6 +228,18 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     await db.acutalizarHorario(meterId, scheduleObject);
   });
+
+
+  btnModificar.addEventListener('click', async () => {
+    let rol = await buscarElRol(Object.entries(datosDB.users));
+    if (rol === "Admin") {
+      await db.modificarMedidor(newName.value, meterId);
+      $("#exampleModalToggle").modal("show");
+    } else {
+      alert("No se pudo cambiar el nombre");
+    }
+
+  });
   //console.log("Sección", 9);
   $("#funcionesBtn").click(function(e) {
     console.log("Evento de guardado disparado");
@@ -426,8 +441,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   //console.log("Sección", 22);
 
-  const buscarElRol = array => {
+  const buscarElRol = async (array) => {
     let arr = [];
+    let user = await firebase.auth().currentUser;
     let roll;
     for (let i = 0; i < array.length; i++) {
       arr = array[i]

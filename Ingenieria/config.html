@@ -96,7 +96,9 @@
                             <input type="text" class="form-control " id="nombreActual" placeholder="No hay nada aún..."
                                 disabled readonly>
                         </div>
-
+                        <div>
+                            <button type="button" id="btnguardarModificar" class="btn btn-primary">Guardar</button>
+                        </div>
 
                         <!--Agregar usuarios (qué hace esto aquí???)-->
                     </form>
@@ -306,6 +308,24 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
             </div>
         </div>
     </div>
+    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
+    tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel">Actualizar Configuración</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Configuración guardada exitosamente!
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
+                    data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 
