@@ -172,7 +172,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       cutDaysUser(32);
       payDaysUser(32);
 
-      $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(db.cargarHorario(meterId));
+      $("#weekly-schedule").data('artsy.dayScheduleSelector').deserialize(await db.cargarHorario(meterId));
       btnEliminar.disable = false;
       mensajeError.classList.add("hideElement");
       mensajeError.classList.remove("showElement", "estiloMensajeError");
@@ -189,9 +189,9 @@ document.addEventListener("DOMContentLoaded", async function () {
       console.log("No hay configuración guardada", e);
     });
   };
-  console.log("Sección", 7);
+  //console.log("Sección", 7);
   await revisarVariable();
-  console.log("Sección", 8);
+  //console.log("Sección", 8);
 
   $("#actualizarHorario").click(async () => {
     let scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();

@@ -222,7 +222,6 @@ class DataBase {
       });
     }
     console.log("db es ", scheduleDB);
-
     return schedule.toScheduleUI(scheduleDB);
   }
 

@@ -1,0 +1,4 @@
+Solo se pueden ingresar usuarios registrados a la página (ignorar si esa es la idea).
+Falta feedback en algunas acciones del usuario (ej.: al guardar el horario, y cuando me dio el error anterior).
+Se puede cambiar el nombre?
+Para qué es el botón del diskette?
