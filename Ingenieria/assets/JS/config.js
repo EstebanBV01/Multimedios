@@ -19,8 +19,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let btnGuardarFechaUsuario = document.querySelector("#btnguardarFechasUsuarios");
   let fechaCorteUsuario = document.querySelector("#slcCutOffDayUser");
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
-
-
+  let user = firebase.auth().currentUser;
   let combo = document.getElementById("rolSelect");
 
   meterId = sessionStorage.getItem("id");
@@ -41,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       $("#cuerpoTablaUsuarios").append(newRow);
     }
-  }
+  };
 
   // A partir de aquí no se usa CREO
   const cutDays = (days) => {
@@ -52,7 +51,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       $("#slcCutOffDay").append(newRow);
     }
-  }
+  };
 
   const payDays = (days) => {
     for (let index = 1; index < days; index++) {
@@ -62,7 +61,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       $("#slcPayDay").append(newRow);
     }
-  }
+  };
 
   const cutDaysUser = (days) => {
     for (let index = 1; index < days; index++) {
@@ -72,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       $("#slcCutOffDayUser").append(newRow);
     }
-  }
+  };
 
   const payDaysUser = (days) => {
     for (let index = 1; index < days; index++) {
@@ -82,10 +81,10 @@ document.addEventListener("DOMContentLoaded", async function () {
 
       $("#slcPayDayUser").append(newRow);
     }
-  }
+  };
   // Hasta aquí no se usa CREO
 
-
+  // Met
   $("#weekly-schedule").dayScheduleSelector({
     /* options */
 
@@ -124,7 +123,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       tiempoDeEspera: number,
       mensajeNotificacion: string
     }; */
-
     let datos = null;
     await db.obtenerDocumento("Config", meterId).then((d) => {
       datos = d;
@@ -145,9 +143,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.getElementById("cooldown").value = datos.tiempoDeEspera;
     document.getElementById("notificationMessage").value = datos.mensajeNotificacion;
 
-    console.log(document.getElementById("funcionesBtn"));
     return Promise.resolve(null);
-  }
+  };
 
   
 
@@ -183,10 +180,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     divCargando.classList.add("hideElement");
 
     await cargarConfig();
-  }
+  };
 
   await revisarVariable();
 
+  // Met
   $("#actualizarHorario").click(async () => {
     let scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
     console.log(scheduleUI);
@@ -204,9 +202,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     await db.acutalizarHorario(meterId, scheduleObject);
   });
+  alert("Seteando el evento");
+  $("#funcionesBtn").click(function(e) {
+    console.log("Evento de guardado disparado");
+    guardarConfig();
+  });
+  alert("Ya lo pasé");
 
-  $("#funcionesBtn").click(async () => {
-    console.log("Guardando");
+  const guardarConfig = async () => {
     const colorEspera = htmlRGBToValues(document.getElementById("standby-color").value);
     const colorEnAlerta = htmlRGBToValues(document.getElementById("alert-color").value);
 
@@ -229,20 +232,32 @@ document.addEventListener("DOMContentLoaded", async function () {
       mensajeNotificacion: document.getElementById("notificationMessage").value
     };
 
+    let success = false;
     await db.escribirDocumento("Config", meterId, datos).then((val) => {
-      alert("Configuración guardada con éxito");
+      success = true;
+      
     }).catch((val) => {
-      alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
+      
     });
 
-    console.log(db.flagUpdate(meterId));
-  });
+    if (success) {
+      console.log(await db.flagUpdate(meterId));
+      alert("Configuración guardada con éxito");
+    } else {
+      alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
+      return Promise.reject(null);
+    }
+    
+    return Promise.resolve(null);
+  };
 
+  // Met
   function htmlRGBToValues(htmlRGB) {
     // htmlRGB is expected to be an string of RGB values in HTML format (aka "#RRGGBB", every value in two hexadecimal digits)
     return [parseInt(htmlRGB.substr(1, 2), 16), parseInt(htmlRGB.substr(3, 2), 16), parseInt(htmlRGB.substr(5, 2), 16)];
   }
 
+  // Met
   // red, green and blue are integers between 0 and 255
   function valuesTohtmlRGB(red, green, blue) {
     // Faster than % 256
@@ -253,14 +268,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     return "#" + intToHex(red) + intToHex(green) + intToHex(blue);
   }
 
+  // Met
   function intToHex(val) {
     return ((val < 16 ? "0" : "") + val.toString(16)).toUpperCase();
   }
 
+  // Met
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
   });
 
+  // Met
   btnEliminarModal.addEventListener("click", async () => {
     let db = new DataBase();
     if (meterName.value === datosDB.customName) {
@@ -273,6 +291,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
 
+  // Met
   window.onbeforeunload = function () {
     if (document.referrer === "") {
       sessionStorage.removeItem("id");
@@ -352,7 +371,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       //Esteban agregue el error de que la fecha corte debe ser menor a la de pago...
     }
   });
-  let user = firebase.auth().currentUser;
+  
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
     let selected = combo.options[combo.selectedIndex].text;
