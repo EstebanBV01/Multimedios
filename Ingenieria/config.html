@@ -100,7 +100,6 @@
                             <button type="button" id="btnguardarModificar" class="btn btn-primary">Guardar</button>
                         </div>
 
-                        <!--Agregar usuarios (qué hace esto aquí???)-->
                     </form>
                 </div>
                 <div class="tab-pane fade container" id="v-pills-funciones" role="tabpanel"
@@ -161,8 +160,9 @@
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="test-sw">
                                     <label class="form-check-label" for="test-sw">Modo prueba <i
-                                        class="bi bi-info-circle" data-bs-toggle="tooltip"
-              data-bs-placement="bottom" title="Permite probar la sensibilidad configurada sin disparar alertas.
+                                            class="bi bi-info-circle" data-bs-toggle="tooltip"
+                                            data-bs-placement="bottom"
+                                            title="Permite probar la sensibilidad configurada sin disparar alertas.
 Desactívalo cuando estés listo o de lo contrario no se enviará la notificación aunque la alarma esté activa."></i></label>
                                 </div>
                             </div>
@@ -300,7 +300,7 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" id="btnAgregarUsuarioModal"
-                                class="btn btn-primary" >AgregarUsuario</button>
+                                class="btn btn-primary">AgregarUsuario</button>
                         </div>
                     </form>
                 </div>
@@ -308,24 +308,29 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
             </div>
         </div>
     </div>
-    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel"
-    tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalToggleLabel">Actualizar Configuración</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                Configuración guardada exitosamente!
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" onclick="window.location.reload()" data-bs-target="#exampleModalToggle" data-bs-toggle="modal"
-                    data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+    
+    <!-- Si quiere saber qué hice con el modal que había aquí, vuele ojo a las funciones btnModificar.addEventListener() y mostrarModalMensaje()
+    en config.js -->
+
+    <div class="modal fade" id="messageModalToggle" aria-hidden="true" aria-labelledby="messageModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalToggleLabel">Lorem Ipsum</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="messageModalBody">
+                    Sample text
+                </div>
+                <div class="modal-footer">
+                    
+                    <button class="btn btn-primary" data-bs-target="#messageModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal"
+                        aria-label="Close">Cerrar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </body>
 

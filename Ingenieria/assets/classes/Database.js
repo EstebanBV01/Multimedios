@@ -2,17 +2,18 @@ class DataBase {
   db = firebase.firestore();
   constructor() { }
 
-  async actualizarEstadoAlarma(deviceID, valor) {
-    const docRef = this.db.collection("Devices").doc(deviceID);
+  // Se diferencia del escribir documento porque aquí se hace update en vez de set, y también
+  // porque no es necesario ingresar todos los campos a la vez a diferencia de set. Lo malo es que puede fallar
+  // si el documento no existe (no lo crea a diferencia de set).
+  async actualizarDocumento(coleccion, documento, campos) {
+    const docRef = this.db.collection(coleccion).doc(documento);
 
-    return await docRef.update({ activated: valor });
+    return await docRef.update(campos);
   }
   
   // Esta función sirve para setear la "bandera" que hará que el dispositivo lea la configuración para actualizársela
   async flagUpdate(deviceID) {
-    const docRef = this.db.collection("Devices").doc(deviceID);
-
-    return await docRef.update({ updateConfig: true });
+    return await actualizarDocumento("Devices", deviceID, { updateConfig: true });
   }
 
   async obtenerDocumento(coleccion, documento) {

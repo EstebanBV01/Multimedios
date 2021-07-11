@@ -1,5 +1,6 @@
 Solo se pueden ingresar usuarios registrados a la página (ignorar si esa es la idea).
-La lista de usuarios se guarda al agregar?
-Falta feedback en algunas acciones del usuario (ej.: al guardar el horario, y cuando me dio el error anterior).
-Se puede cambiar el nombre?
+Falta feedback en algunas acciones del usuario (de momento solo al guardar el horario).
+La lista de usuarios se guarda al agregar? (pregunta)
 Para qué es el botón del diskette?
+Faltan hacer validaciones, por ejemplo pude guardar un nombre vacío (ahora no porque ya lo implementé, pero creo que igual faltan en otros lugares).
+No es un bug, pero creo que se puede generalizar a una función lo de verificar el rol del usuario actual.

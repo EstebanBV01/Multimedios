@@ -231,18 +231,25 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
   btnModificar.addEventListener('click', async () => {
-    let rol = await buscarElRol(Object.entries(datosDB.users));
+    const rol = await buscarElRol(Object.entries(datosDB.users));
     if (rol === "Admin") {
+      if (newName.value.trim().length === 0) { // Aquí un ejemplo de validación sencillo
+        alert("El nuevo nombre no puede estar vacío o con solamente espacios en blanco");
+        return Promise.reject(null);
+      }
       await db.modificarMedidor(newName.value, meterId);
-      $("#exampleModalToggle").modal("show");
+      nombreActual.placeholder = newName.value;
+      newName.value = "";
+      mostrarModalMensaje("Actualizar Configuración", "Configuración guardada exitosamente!");
+      // $("#exampleModalToggle").modal("show"); // Ya no se hará así porque implementé un modal "genérico" para mensajes.
     } else {
       alert("No se pudo cambiar el nombre");
+      return Promise.reject(null);
     }
 
   });
   //console.log("Sección", 9);
   $("#funcionesBtn").click(function(e) {
-    console.log("Evento de guardado disparado");
     guardarConfig();
   });
   //console.log("Sección", 10);
@@ -271,7 +278,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
     let success = false;
 
-    await db.actualizarEstadoAlarma(meterId, document.getElementById("alarm-sw").checked)
+    await db.actualizarDocumento("Devices", meterId, { activated: document.getElementById("alarm-sw").checked })
     .then((val) => {
       success = true;
       
@@ -280,7 +287,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
 
     if (!success) {
-      alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
+      //alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
+      mostrarModalMensaje("Mensaje al usuario", "ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
       return Promise.reject(null);
     }
 
@@ -294,9 +302,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     if (success) {
       console.log(await db.flagUpdate(meterId));
-      alert("Configuración guardada con éxito");
+      //alert("Configuración guardada con éxito");
+      mostrarModalMensaje("Mensaje al usuario", "Configuración guardada con éxito");
     } else {
-      alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
+      //alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
+      mostrarModalMensaje("Mensaje al usuario", "ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
       return Promise.reject(null);
     }
     
@@ -321,6 +331,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   function intToHex(val) {
     return ((val < 16 ? "0" : "") + val.toString(16)).toUpperCase();
+  }
+
+  // Funciona parecido al showMessageDialog del JOptionPane de Java Swing
+  function mostrarModalMensaje(titulo, mensaje) {
+    document.getElementById("messageModalToggleLabel").innerText = titulo;
+    document.getElementById("messageModalBody").innerText = mensaje;
+    $("#messageModalToggle").modal("show");
   }
   //console.log("Sección", 14);
 
