@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
+inputEmail.addEventListener('change', () => {
+  inputEmail.value = inputEmail.value.toLowerCase();
+});
 
 btnConfirm_loginRegist.addEventListener('click', async(event) => {
     event.preventDefault();

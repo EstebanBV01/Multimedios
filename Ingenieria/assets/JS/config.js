@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let btnEliminarModal = document.querySelector("#btnEliminarDispositivo");
   let divCargando = document.querySelector("#divCargando");
   let emailAgregarUsuario = document.querySelector("#emailAgregarUsuario");
-  let formAgregarUsuario = document.querySelector("#formAgregarUsuario");
+  let formAgregarUsuario = document.querySelector("#btnAgregarUsuarioModal");
   let btnGuardarFecha = document.querySelector("#btnguardarFechas");
   let fechaCorte = document.querySelector("#slcCutOffDay");
   let fechaPago = document.querySelector("#slcPayDay");
@@ -399,17 +399,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
   //console.log("Sección", 21); TODO
-  formAgregarUsuario.addEventListener('submit', async e => {
-    e.preventDefault();
+  formAgregarUsuario.addEventListener('click', async e => {
+    //e.preventDefault();
     let selected = combo.options[combo.selectedIndex].text;
     let rol = buscarElRol(Object.entries(datosDB.users));
-    let idUsuarioaAgregar = await db.buscarUsuarioXemail(emailAgregarUsuario.value);
+    let idUsuarioaAgregar = await db.buscarUsuarioXemail(emailAgregarUsuario.value.trim().toLowerCase());
     if (rol === "Admin" && idUsuarioaAgregar != undefined) {
       console.log(rol + " " + emailAgregarUsuario.value + " " + selected);
       await db.agregarUsuarioAlista(meterId, idUsuarioaAgregar, emailAgregarUsuario.value, selected);
       await db.activarDispositivoParaUserAdmin(meterId, idUsuarioaAgregar, emailAgregarUsuario.value, selected);
     } else {
-      alert("usted no tiene permisos de administrador o el usuario no existe");
+      alert("Usted no tiene permisos de administrador, o el usuario (correo) digitado no existe");
     }
 
     $("#modalAgregarUsuario").modal("hide");
@@ -436,7 +436,10 @@ document.addEventListener("DOMContentLoaded", async function () {
   console.log("Sección", 23);
 
   $("#guardarBtn").click(async function(e) {
-    // Validar privilegio del usuario?
+    if (buscarElRol(Object.entries(datosDB.users)) !== "Admin") {
+      alert("No se puede guardar, el usuario actual no tiene permiso de administrador sobre este dispositivo.");
+      return;
+    }
 
     if (document.getElementById("notificationMessage").value.trim().length === 0) {
       alert("El mensaje de notificación no puede estar vacío o con solamente espacios en blanco");
@@ -473,12 +476,13 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     await lote.commit()
     .then((v) => {
-      mostrarModalMensaje("Mensaje al usuario", "¡Todos los cambios se han guardado con éxito!");
+      mostrarModalMensaje("Mensaje al usuario", "¡Todos los cambios se han guardado con éxito! "
+      + "Espere unos segundos para que surjan efecto en el dispositivo.");
     })
     .catch((error) => {
       console.log("Error al guardar todo:", error);
       alert("No se pudieron guardar todos los cambios".toUpperCase()
-      + "\nPor favor inténtelo de nuevo asegurándo una buena conexión a internet.");
+      + "\nPor favor inténtelo de nuevo asegurando una buena conexión a internet.");
     });
   });
 });

@@ -1,4 +1,3 @@
-Solo se pueden ingresar usuarios registrados a la página (ignorar si esa es la idea).
-No es un bug, pero creo que se puede generalizar a una función lo de verificar el rol del usuario actual.
-TODO: obtener los usuarios para el guardado total. Si ahora usan aquel botón, no se preocupen que no va a borrar nada ya que por ahora hace update y no set.
-Existe una forma más fácil de extraer esos usuarios que no sea recorriendo la tabla? Es más... dónde consigo el ID de cada uno?
+Puedo dejar el manejo de usuarios como un guardado aparte o nel?
+Soy yo o el botón para editar un usuario del dispositivo no hace nada?
+Creo que falta feedback al registrarse (y creo que hasta validaciones para el método de correo-contraseña)
