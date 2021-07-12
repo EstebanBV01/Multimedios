@@ -1,6 +1,4 @@
 Solo se pueden ingresar usuarios registrados a la página (ignorar si esa es la idea).
-Falta feedback en algunas acciones del usuario (de momento solo al guardar el horario).
-La lista de usuarios se guarda al agregar? (pregunta)
-Para qué es el botón del diskette?
-Faltan hacer validaciones, por ejemplo pude guardar un nombre vacío (ahora no porque ya lo implementé, pero creo que igual faltan en otros lugares).
 No es un bug, pero creo que se puede generalizar a una función lo de verificar el rol del usuario actual.
+TODO: obtener los usuarios para el guardado total. Si ahora usan aquel botón, no se preocupen que no va a borrar nada ya que por ahora hace update y no set.
+Existe una forma más fácil de extraer esos usuarios que no sea recorriendo la tabla? Es más... dónde consigo el ID de cada uno?

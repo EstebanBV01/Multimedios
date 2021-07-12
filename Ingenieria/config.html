@@ -78,7 +78,7 @@
 
             <div id="mensajeError" class="hideElement container mx-auto">
                 <h3 id="noMedidores">Selecciona un dispositivo para empezar</h3>
-                <a class="btn btn-primary" href="/Ingenieria/loged.html"> Mostrar Dispositivos </a>
+                <a class="btn btn-primary" href="loged.html"> Mostrar Dispositivos </a>
             </div>
             <div class="hideElement container-sm tab-content" id="v-pills-tabContent">
                 <div class=" mx-auto tab-pane fade show active" id="v-pills-nombre" role="tabpanel"
@@ -96,10 +96,6 @@
                             <input type="text" class="form-control " id="nombreActual" placeholder="No hay nada aún..."
                                 disabled readonly>
                         </div>
-                        <div>
-                            <button type="button" id="btnguardarModificar" class="btn btn-primary">Guardar</button>
-                        </div>
-
                     </form>
                 </div>
                 <div class="tab-pane fade container" id="v-pills-funciones" role="tabpanel"
@@ -200,9 +196,6 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
                                 <form action="#" class="d-flex flex-column">
                                     <h5 for="notificationMessage">Mensaje de notificación</h5>
                                     <textarea class="form-control" id="notificationMessage" rows="2"></textarea>
-                                    <br>
-                                    <button type="button" class="btn btn-primary col-2 offset-md-2"
-                                        style="align-self: flex-end" id="funcionesBtn">Guardar</button>
                                 </form>
                             </div>
                         </div>
@@ -238,9 +231,6 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
                     <div id="horarioContainer" class="mx-auto container-sm overflow-auto ">
 
                         <div id="weekly-schedule" class="mx-auto verflow-auto "> </div>
-                        <div class=" d-flex justify-content-end">
-                            <button id="actualizarHorario" type="button" class="btn btn-primary">Actualizar</button>
-                        </div>
                     </div>
 
                 </div>
@@ -249,9 +239,10 @@ Desactívalo cuando estés listo o de lo contrario no se enviará la notificaci�
 
         <div id="footerConfiguracion">
             <div id="footerContenido">
-                <button type="submit" class="btn btn-outline-success"><i style="font-size: 2rem"
-                        class="far fa-save"></i></button>
-                <button id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem"
+                <button type="button" class="btn btn-outline-success" id="guardarBtn"
+                data-bs-toggle="tooltip" data-bs-placement="bottom" title="Guardar todo">
+                    <i style="font-size: 2rem" class="far fa-save"></i></button>
+                <button type="button" id="btnEliminarMedidor" class="btn btn-outline-danger"><i style="font-size: 2rem"
                         class="bi bi-trash"></i></button>
             </div>
         </div>

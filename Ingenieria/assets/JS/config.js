@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   let fechaPagoUsuario = document.querySelector("#slcPayDayUser");
   let user = firebase.auth().currentUser;
   let combo = document.getElementById("rolSelect");
-  let btnModificar = document.querySelector('#btnguardarModificar');
+  //let btnModificar = document.querySelector('#btnguardarModificar');
   let newName = document.querySelector("#nuevoNombreInput");
 
 
@@ -47,7 +47,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   };
   //console.log("Sección", 3);
 
-  // A partir de aquí no se usa CREO
   const cutDays = (days) => {
     for (let index = 1; index < days; index++) {
       const day = index;
@@ -87,7 +86,6 @@ document.addEventListener("DOMContentLoaded", async function () {
       $("#slcPayDayUser").append(newRow);
     }
   };
-  // Hasta aquí no se usa CREO
 
   //console.log("Sección", 4);
 
@@ -211,11 +209,11 @@ document.addEventListener("DOMContentLoaded", async function () {
   await revisarVariable();
   //console.log("Sección", 8);
 
-  $("#actualizarHorario").click(async () => {
-    let scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
+  const obtenerHorario = () => {
+    const scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
     console.log(scheduleUI);
 
-    let sch = new Schedule(true);
+    const sch = new Schedule(true);
 
     scheduleObject.toScheduleObject(scheduleUI);
     console.log(scheduleObject);
@@ -225,9 +223,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     console.log("--------------------------------------------");
 
     console.log(ui);
-
-    await db.acutalizarHorario(meterId, scheduleObject);
-  });
+  };
 
 
   btnModificar.addEventListener('click', async () => {
@@ -248,17 +244,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
   });
-  //console.log("Sección", 9);
-  $("#funcionesBtn").click(function(e) {
-    guardarConfig();
-  });
-  //console.log("Sección", 10);
 
-  const guardarConfig = async () => {
+  const crearDocumentoConfig = () => {
     const colorEspera = htmlRGBToValues(document.getElementById("standby-color").value);
     const colorEnAlerta = htmlRGBToValues(document.getElementById("alert-color").value);
 
-    const datos = {
+    return {
       colorEnEspera: {
         Red: colorEspera[0],
         Green: colorEspera[1],
@@ -274,43 +265,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       enModoPrueba: document.getElementById("test-sw").checked,
       umbralSonido: parseInt(document.getElementById("sensitivity").value),
       tiempoDeEspera: parseInt(document.getElementById("cooldown").value),
-      mensajeNotificacion: document.getElementById("notificationMessage").value
+      mensajeNotificacion: document.getElementById("notificationMessage").value.trim()
     };
-    let success = false;
-
-    await db.actualizarDocumento("Devices", meterId, { activated: document.getElementById("alarm-sw").checked })
-    .then((val) => {
-      success = true;
-      
-    }).catch((val) => {
-      
-    });
-
-    if (!success) {
-      //alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
-      mostrarModalMensaje("Mensaje al usuario", "ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
-      return Promise.reject(null);
-    }
-
-    success = false;
-    await db.escribirDocumento("Config", meterId, datos).then((val) => {
-      success = true;
-      
-    }).catch((val) => {
-      
-    });
-
-    if (success) {
-      console.log(await db.flagUpdate(meterId));
-      //alert("Configuración guardada con éxito");
-      mostrarModalMensaje("Mensaje al usuario", "Configuración guardada con éxito");
-    } else {
-      //alert("ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
-      mostrarModalMensaje("Mensaje al usuario", "ERROR AL GUARDAR CAMBIOS.\nPor favor inténtelo de nuevo asegurando una conexión a internet.");
-      return Promise.reject(null);
-    }
-    
-    return Promise.resolve(null);
   };
   //console.log("Sección", 11);
   function htmlRGBToValues(htmlRGB) {
@@ -384,6 +340,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   })
   //console.log("Sección", 19);
+  // Esto no es del proyecto SoundMeter verdad? De no ser así definitivamente no lo toco
   btnGuardarFecha.addEventListener("click", async () => {
     let db = new DataBase();
     let optCorte;
@@ -411,6 +368,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
   });
   //console.log("Sección", 20);
+
+  // Esto no es del proyecto SoundMeter verdad? De no ser así definitivamente no lo toco
   btnGuardarFechaUsuario.addEventListener("click", async () => {
     let db = new DataBase();
     let optCorteUsuario;
@@ -439,7 +398,7 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
 
-  //console.log("Sección", 21);
+  //console.log("Sección", 21); TODO
   formAgregarUsuario.addEventListener('submit', async e => {
     e.preventDefault();
     let selected = combo.options[combo.selectedIndex].text;
@@ -474,5 +433,52 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
     return roll;
   }
-  //console.log("Sección", 23);
+  console.log("Sección", 23);
+
+  $("#guardarBtn").click(async function(e) {
+    // Validar privilegio del usuario?
+
+    if (document.getElementById("notificationMessage").value.trim().length === 0) {
+      alert("El mensaje de notificación no puede estar vacío o con solamente espacios en blanco");
+      return;
+    }
+
+    const localDB = firebase.firestore();
+    console.log("Instancia FireStore para el guardado:", localDB);
+    const lote = localDB.batch();
+    const nuevoNombre = newName.value.trim();
+
+    const datosDispositivo = {
+      activated: document.getElementById("alarm-sw").checked,
+      customName: (nuevoNombre.length !== 0 ? nuevoNombre : nombreActual.placeholder),
+      lastValue: 0,
+      type: "SoundMeter",
+      updateConfig: false
+      //users: {}
+    };
+
+    obtenerHorario();
+    const scheduleDB = scheduleObject.toScheduleDB();
+
+    // Establecer operaciones de escritura
+    lote.update(localDB.doc("Devices/" + meterId), datosDispositivo);
+    lote.set(localDB.doc("Config/" + meterId), crearDocumentoConfig());
+    
+    let documentoHorario;
+    // Setear el horario de cada día
+    for (let index = 0; index < 7; index++) {
+      documentoHorario = localDB.collection("Config").doc(idMeter).collection("Schedule").doc(`d${index}`);
+      lote.set(documentoHorario, scheduleDB[`d${index}`], { merge: true });
+    }
+
+    await lote.commit()
+    .then((v) => {
+      mostrarModalMensaje("Mensaje al usuario", "¡Todos los cambios se han guardado con éxito!");
+    })
+    .catch((error) => {
+      console.log("Error al guardar todo:", error);
+      alert("No se pudieron guardar todos los cambios".toUpperCase()
+      + "\nPor favor inténtelo de nuevo asegurándo una buena conexión a internet.");
+    });
+  });
 });
