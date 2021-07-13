@@ -200,14 +200,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
     divCargando.classList.remove("showElement");
     divCargando.classList.add("hideElement");
-
-    await cargarConfig().catch((e) => {
-      console.log("No hay configuración guardada", e);
-    });
   };
   //console.log("Sección", 7);
   await revisarVariable();
   //console.log("Sección", 8);
+  await cargarConfig().catch((e) => {
+    console.log("No hay configuración guardada", e);
+  });
 
   const obtenerHorario = () => {
     const scheduleUI = $("#weekly-schedule").data('artsy.dayScheduleSelector').serialize();
@@ -224,26 +223,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     console.log(ui);
   };
-
-
-  btnModificar.addEventListener('click', async () => {
-    const rol = await buscarElRol(Object.entries(datosDB.users));
-    if (rol === "Admin") {
-      if (newName.value.trim().length === 0) { // Aquí un ejemplo de validación sencillo
-        alert("El nuevo nombre no puede estar vacío o con solamente espacios en blanco");
-        return Promise.reject(null);
-      }
-      await db.modificarMedidor(newName.value, meterId);
-      nombreActual.placeholder = newName.value;
-      newName.value = "";
-      mostrarModalMensaje("Actualizar Configuración", "Configuración guardada exitosamente!");
-      // $("#exampleModalToggle").modal("show"); // Ya no se hará así porque implementé un modal "genérico" para mensajes.
-    } else {
-      alert("No se pudo cambiar el nombre");
-      return Promise.reject(null);
-    }
-
-  });
 
   const crearDocumentoConfig = () => {
     const colorEspera = htmlRGBToValues(document.getElementById("standby-color").value);
@@ -295,22 +274,26 @@ document.addEventListener("DOMContentLoaded", async function () {
     document.getElementById("messageModalBody").innerText = mensaje;
     $("#messageModalToggle").modal("show");
   }
-  //console.log("Sección", 14);
+  console.log("Sección", 14);
 
+  // Esto no le funka a María aparentemente
   btnEliminar.addEventListener("click", async () => {
     $("#modalEliminarMedidor").modal("show");
   });
-  //console.log("Sección", 15);
+  console.log("Sección", 15);
 
   btnEliminarModal.addEventListener("click", async () => {
     let db = new DataBase();
-    if (meterName.value === datosDB.customName) {
+    if (meterName.value.trim() === datosDB.customName) {
       await db.eliminarDispositivo(meterId);
       console.log("ELIMINAR");
       meterId = null;
       sessionStorage.removeItem("id");
       revisarVariable();
       $("#modalEliminarMedidor").modal("hide");
+      mostrarModalMensaje("Mensaje al usuario", "Dispositivo eliminado con éxito");
+    } else {
+      alert("Los nombres no coinciden, no se puede continuar.");
     }
   });
   //console.log("Sección", 16);
@@ -398,11 +381,20 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
 
-  //console.log("Sección", 21); TODO
+  //console.log("Sección", 21)
   formAgregarUsuario.addEventListener('click', async e => {
     //e.preventDefault();
     let selected = combo.options[combo.selectedIndex].text;
-    let rol = buscarElRol(Object.entries(datosDB.users));
+
+    let rol = null;
+    await buscarElRol(Object.entries(datosDB.users))
+    .then((v) => {
+      rol = v;
+    })
+    .catch((error) => {
+      console.log("Error al obtener el rol:", error);
+    });
+
     let idUsuarioaAgregar = await db.buscarUsuarioXemail(emailAgregarUsuario.value.trim().toLowerCase());
     if (rol === "Admin" && idUsuarioaAgregar != undefined) {
       console.log(rol + " " + emailAgregarUsuario.value + " " + selected);
@@ -433,10 +425,19 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
     return roll;
   }
-  console.log("Sección", 23);
+  //console.log("Sección", 23);
 
   $("#guardarBtn").click(async function(e) {
-    if (buscarElRol(Object.entries(datosDB.users)) !== "Admin") {
+    let rol = null;
+    await buscarElRol(Object.entries(datosDB.users))
+    .then((v) => {
+      rol = v;
+    })
+    .catch((error) => {
+      console.log("Error al obtener el rol:", error);
+    });
+    console.log("Rol del usuario actual:", rol);
+    if (rol !== "Admin") {
       alert("No se puede guardar, el usuario actual no tiene permiso de administrador sobre este dispositivo.");
       return;
     }
@@ -447,7 +448,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     const localDB = firebase.firestore();
-    console.log("Instancia FireStore para el guardado:", localDB);
     const lote = localDB.batch();
     const nuevoNombre = newName.value.trim();
 
@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let documentoHorario;
     // Setear el horario de cada día
     for (let index = 0; index < 7; index++) {
-      documentoHorario = localDB.collection("Config").doc(idMeter).collection("Schedule").doc(`d${index}`);
+      documentoHorario = localDB.collection("Config").doc(meterId).collection("Schedule").doc(`d${index}`);
       lote.set(documentoHorario, scheduleDB[`d${index}`], { merge: true });
     }
 
@@ -484,5 +484,10 @@ document.addEventListener("DOMContentLoaded", async function () {
       alert("No se pudieron guardar todos los cambios".toUpperCase()
       + "\nPor favor inténtelo de nuevo asegurando una buena conexión a internet.");
     });
+
+    if (nuevoNombre.length !== 0) {
+      nombreActual.placeholder = nuevoNombre;
+    }
+    newName.value = "";
   });
 });
