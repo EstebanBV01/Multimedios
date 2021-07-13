@@ -148,9 +148,14 @@ document.addEventListener("DOMContentLoaded", async function () {
       datos = d;
 
     }).catch((error) => {
-      if (error === null) alert("¡Dispositivo nuevo detectado!\n"
-      + "Guarde sus configuraciones para que no vuelva a aparecer este mensaje con este dispositivo.");
-      else alert("ERROR AL CARGAR CONFIGURACIÓN.\nPor favor recargue la página asegurando una buena conexión a internet.");
+      if (error === null) {
+        alert("¡Dispositivo nuevo detectado!\n"
+        + "Guarde sus configuraciones para que no vuelva a aparecer este mensaje con este dispositivo.");
+        
+        // Mensaje de notificación por defecto
+        document.getElementById("notificationMessage").value = 
+        "Por favor baje el nivel de ruido que me está molestando en este momento.\n¡Gracias de antemano por su cooperación!";
+    } else alert("ERROR AL CARGAR CONFIGURACIÓN.\nPor favor recargue la página asegurando una buena conexión a internet.");
       return Promise.reject(error);
     });
 
@@ -450,10 +455,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     const localDB = firebase.firestore();
     const lote = localDB.batch();
     const nuevoNombre = newName.value.trim();
+    const cambiarNombre = nuevoNombre.length !== 0;
 
     const datosDispositivo = {
       activated: document.getElementById("alarm-sw").checked,
-      customName: (nuevoNombre.length !== 0 ? nuevoNombre : nombreActual.placeholder),
+      customName: (cambiarNombre ? nuevoNombre : nombreActual.placeholder),
       lastValue: 0,
       type: "SoundMeter",
       updateConfig: false
@@ -466,6 +472,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     // Establecer operaciones de escritura
     lote.update(localDB.doc("Devices/" + meterId), datosDispositivo);
     lote.set(localDB.doc("Config/" + meterId), crearDocumentoConfig());
+
+    if (cambiarNombre) {
+      const user = await firebase.auth().currentUser;
+      lote.update(localDB.doc("Users/" + user.uid), {[`devices.${meterId}.customName`]:nuevoNombre});
+    }
     
     let documentoHorario;
     // Setear el horario de cada día
@@ -485,7 +496,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       + "\nPor favor inténtelo de nuevo asegurando una buena conexión a internet.");
     });
 
-    if (nuevoNombre.length !== 0) {
+    if (cambiarNombre) {
       nombreActual.placeholder = nuevoNombre;
     }
     newName.value = "";
