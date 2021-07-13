@@ -125,7 +125,7 @@
                         </div>
                         <button id='btnGoogle' type="button" class="btn btn-outline-danger"><i
                                 class="fab fa-google"></i> Google</button>
-                        <button id="btnConfirm_loginRegist" type="submit" class="btn btn-primary">Confirmar</button>
+                        <button id="btnConfirm_loginRegist" type="button" class="btn btn-primary">Confirmar</button>
 
 
                     </div>
@@ -145,6 +145,26 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="messageModalToggle" aria-hidden="true" aria-labelledby="messageModalToggleLabel"
+        tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messageModalToggleLabel">Lorem Ipsum</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="messageModalBody">
+                    Sample text
+                </div>
+                <div class="modal-footer">
+                    
+                    <button class="btn btn-primary" data-bs-target="#messageModalToggle" data-bs-toggle="modal" data-bs-dismiss="modal"
+                        aria-label="Close">Cerrar</button>
                 </div>
             </div>
         </div>

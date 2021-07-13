@@ -16,6 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
 })
 
+function mostrarModalMensaje(titulo, mensaje) {
+  document.getElementById("messageModalToggleLabel").innerText = titulo;
+  document.getElementById("messageModalBody").innerText = mensaje;
+  $("#messageModalToggle").modal("show");
+}
+
 inputEmail.addEventListener('change', () => {
   inputEmail.value = inputEmail.value.toLowerCase();
 });
@@ -51,6 +57,7 @@ btnConfirm_loginRegist.addEventListener('click', async(event) => {
       user=result;
       console.log(user);
       $("#signUpModal").modal("hide");
+      mostrarModalMensaje("Estado del registro", "Usuario registrado exitosamente");
     } else {
       $("#modalContent").text(
         "Las contraseñas no coinciden o el email es invalido"
