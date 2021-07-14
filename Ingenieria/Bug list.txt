@@ -1,3 +1,1 @@
-Puedo dejar el manejo de usuarios como un guardado aparte o nel?
 Soy yo o el botón para editar un usuario del dispositivo no hace nada?
-Creo que falta feedback al registrarse (y creo que hasta validaciones para el método de correo-contraseña)

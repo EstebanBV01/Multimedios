@@ -249,7 +249,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       enModoPrueba: document.getElementById("test-sw").checked,
       umbralSonido: parseInt(document.getElementById("sensitivity").value),
       tiempoDeEspera: parseInt(document.getElementById("cooldown").value),
-      mensajeNotificacion: document.getElementById("notificationMessage").value.trim()
+      mensajeNotificacion: document.getElementById("notificationMessage").value.trim(),
+      notificar: false
     };
   };
   //console.log("Sección", 11);
@@ -488,7 +489,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     await lote.commit()
     .then((v) => {
       mostrarModalMensaje("Mensaje al usuario", "¡Todos los cambios se han guardado con éxito! "
-      + "Espere unos segundos para que surjan efecto en el dispositivo.");
+      + "Ahora presione el botón de \"Actualizar config\" para que surjan efecto en el dispositivo.");
     })
     .catch((error) => {
       console.log("Error al guardar todo:", error);
